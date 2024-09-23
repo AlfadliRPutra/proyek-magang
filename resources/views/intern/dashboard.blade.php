@@ -75,10 +75,10 @@
                                         <i class="fas fa-camera-retro" style="font-size: 1.5rem;"></i>
                                     @endif
                                     <div class="ms-3">
-                                        <span class="fs-7 fw-bold mb-1">{{ $label }}</span>
-                                        <span>{!! $presensiToday && !empty($presensiToday->$hourField)
+                                        <div class="fs-7 fw-bold mb-1">{{ $label }}</div>
+                                        <div>{!! $presensiToday && !empty($presensiToday->$hourField)
                                             ? $presensiToday->$hourField
-                                            : '<i class="fas fa-exclamation-circle"></i> Belum Absen' !!}</span>
+                                            : '<i class="fas fa-exclamation-circle"></i> Belum Absen' !!}</div>
                                     </div>
                                 </div>
                             </div>
