@@ -21,7 +21,7 @@
     <script>
         WebFont.load({
             google: {
-                families: ["Public Sans:300,400,500,600,700"]
+                families: ["Roboto:300,400,500,600,700"]
             },
             custom: {
                 families: ["Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands",
@@ -85,7 +85,7 @@
 
 </head>
 
-<body style="background-color: #e0e1dd;">
+<body>
 
     <!-- Loader -->
     <div id="loader">

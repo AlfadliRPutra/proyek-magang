@@ -1,7 +1,7 @@
 <x-intern-layout-app>
     @section('title', 'Dashboard')
 
-    <div class="container">
+    <div class="container mt-3">
         <!-- User Info Section -->
         <div class="card mb-4">
             <div class="card-body p-3">
@@ -39,17 +39,41 @@
         <div class="card mb-4">
             <div class="card-body p-3 text-center">
                 <div class="row gx-3">
-                    @foreach ([['url' => '/editprofile', 'icon' => 'book', 'label' => 'Activity'], ['url' => '/venue/index.html', 'icon' => 'calendar-alt', 'label' => 'Fasilitas'], ['url' => '/presensi/history', 'icon' => 'history', 'label' => 'Histori'], ['url' => route('intern.unit'), 'icon' => 'sitemap', 'label' => 'Divisi']] as $menu)
-                        <div class="col-3">
-                            <a href="{{ $menu['url'] }}" class="d-block mb-2" style="font-size: 1.8rem;">
-                                <i class="fas fa-{{ $menu['icon'] }}"></i>
-                            </a>
-                            <span class="text-muted">{{ $menu['label'] }}</span>
-                        </div>
-                    @endforeach
+                    <!-- Menu 1: Activity -->
+                    <div class="col-3">
+                        <a href="{{ route('intern.goals') }}" class="d-block mb-2" style="font-size: 1.8rem;">
+                            <i class="fas fa-book"></i>
+                        </a>
+                        <span class="text-muted">Goals!</span>
+                    </div>
+
+                    <!-- Menu 2: Fasilitas -->
+                    <div class="col-3">
+                        <a href="/venue/index.html" class="d-block mb-2" style="font-size: 1.8rem;">
+                            <i class="fas fa-calendar-alt"></i>
+                        </a>
+                        <span class="text-muted">Fasilitas</span>
+                    </div>
+
+                    <!-- Menu 3: Histori -->
+                    <div class="col-3">
+                        <a href="/presensi/history" class="d-block mb-2" style="font-size: 1.8rem;">
+                            <i class="fas fa-history"></i>
+                        </a>
+                        <span class="text-muted">Histori</span>
+                    </div>
+
+                    <!-- Menu 4: Divisi -->
+                    <div class="col-3">
+                        <a href="{{ route('intern.unit') }}" class="d-block mb-2" style="font-size: 1.8rem;">
+                            <i class="fas fa-sitemap"></i>
+                        </a>
+                        <span class="text-muted">Divisi</span>
+                    </div>
                 </div>
             </div>
         </div>
+
 
         <!-- Presence Section -->
         <div class="card mb-4">
@@ -174,8 +198,6 @@
             </div>
         </div>
     </div>
-    <br>
-    <br>
     <br>
     <br>
 

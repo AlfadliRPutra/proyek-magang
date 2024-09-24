@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DataMasterController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\GoalController;
 use App\Http\Controllers\InternController;
 use App\Http\Controllers\InternProfileController;
 use App\Http\Controllers\OfficeController;
@@ -15,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::redirect('/', '/login');
+Route::middleware(['guest'])->group(function () {
+    Route::redirect('/', '/login');
+});
 
 
 Route::middleware(['auth',  'verified'])->group(function () {
@@ -87,6 +90,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('role:intern')->prefix('intern')->group(function () {
 
         Route::get('/dashboard', [DashboardController::class, 'InternDashboard'])->name('intern.dashboard');
+
+        Route::get('/goals', [GoalController::class, 'index'])->name('intern.goals');
+        Route::post('/goal/store', [GoalController::class, 'store'])->name('intern.goal.store');
+        Route::put('/goals/{id}', [GoalController::class, 'update'])->name('intern.goal.update'); // ID needed
+
+
 
         Route::get('/presensi/create', [PresensiController::class, 'index'])->name('intern.presensi.create');
         Route::post('/presensi/store', [PresensiController::class, 'store'])->name('intern.presensi.store');
