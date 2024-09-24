@@ -42,7 +42,7 @@
                     <!-- Menu 1: Activity -->
                     <div class="col-3">
                         <a href="{{ route('intern.goals') }}" class="d-block mb-2" style="font-size: 1.8rem;">
-                            <i class="fas fa-book"></i>
+                            <i class="fas fa-bullseye"></i>
                         </a>
                         <span class="text-muted">Goals!</span>
                     </div>

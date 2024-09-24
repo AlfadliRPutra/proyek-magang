@@ -41,6 +41,10 @@
     <link rel="stylesheet" href="{{ asset('css/kaiadmin.min.css') }}" />
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body.loader-active {
             overflow: hidden;
             /* Mencegah scrollbar saat loader aktif */

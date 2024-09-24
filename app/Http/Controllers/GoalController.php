@@ -37,30 +37,28 @@ class GoalController extends Controller
     // Store a new goal
     public function store(Request $request)
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'description' => 'required|string|max:255',
-            'status' => 'required|string|in:In Progress,Done',
-        ]);
+        $userId = auth()->user()->id_pengguna;
+        $today = now()->format('Y-m-d'); // Atau pakai timestamp sesuai preferensi
 
-        // Get the current user's ID
-        $id_pengguna = Auth::id();
+        // Cek apakah sudah ada goal hari ini
+        $existingGoal = Goal::where('id_pengguna', $userId)
+            ->whereDate('created_at', $today)
+            ->exists();
 
-        // Attempt to create the goal
-        try {
-            Goal::create([
-                'description' => $validatedData['description'],
-                'status' => $validatedData['status'],
-                'id_pengguna' => $id_pengguna,
-            ]);
-
-            // Redirect back with success message
-            return redirect()->back()->with('success', 'Goal created successfully!');
-        } catch (\Exception $e) {
-            // Redirect back with error message if something goes wrong
-            return redirect()->back()->with('error', 'Failed to create goal: ' . $e->getMessage());
+        if ($existingGoal) {
+            return redirect()->back()->with('error', 'Kamu sudah mengisi goal hari ini.');
         }
+
+        // Lanjutkan penyimpanan goal jika belum ada
+        $goal = new Goal();
+        $goal->user_id = $userId;
+        $goal->goal = $request->input('goal');
+        $goal->status = $request->input('status');
+        $goal->save();
+
+        return redirect()->back()->with('success', 'Goal berhasil ditambahkan!');
     }
+
 
     // Update the status of an existing goal by ID
     public function update(Request $request, $id)
