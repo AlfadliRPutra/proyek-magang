@@ -15,25 +15,25 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function redirectBasedOnRole()
+    public function redirect()
     {
-        // Ambil ID pengguna yang sedang login
-        $userId = Auth::id();
+        // Get the authenticated user using the User model
+        $user = auth()->user(); // This returns an instance of User
 
-        // Dapatkan model user menggunakan find() atau metode lainnya
-        $user = User::find($userId);
-
-        // Periksa role pengguna menggunakan model secara langsung
         if ($user->hasRole('super-admin')) {
             return redirect('/super-admin/dashboard');
-        } elseif ($user->hasRole('admin')) {
-            return redirect('/admin/dashboard');
-        } elseif ($user->hasRole('intern')) {
-            return redirect('/intern/dashboard');
-        } else {
-            // Jika tidak ada role yang cocok, arahkan ke halaman unauthorized
-            return abort(403, 'Unauthorized');
         }
+
+        if ($user->hasRole('admin')) {
+            return redirect('/admin/dashboard');
+        }
+
+        if ($user->hasRole('intern')) {
+            return redirect('/intern/dashboard');
+        }
+
+        // Fallback redirect if no role matches
+        return redirect('/');
     }
     /**
      * Display a listing of the resource.

@@ -18,12 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guest'])->group(function () {
     Route::redirect('/', '/login');
-    Route::redirect('/logout', '/login');
+    // Route::redirect('/logout', '/login');
 });
 
 
 Route::middleware(['auth',  'verified'])->group(function () {
-    Route::view('home', 'home')->name('home');
+    // Route::view('home', 'home')->name('home');
+    Route::get('/home', [DashboardController::class, 'redirect'])->name('home');
     Route::view('password/update', 'auth.passwords.update')->name('passwords.update');
 });
 

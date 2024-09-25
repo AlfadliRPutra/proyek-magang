@@ -1,234 +1,104 @@
-<<<<<<< HEAD
 <x-intern-layout-app>
-    @section('title', 'Dashboard')
-=======
-<x-intern-layout>
-    @section('title','Dashboard')
->>>>>>> ab39fcc3943315fe01096456de35228b380e7cef
-    <div class="appHeader text-light">
-        <div class="left">
-            <a href="javascript:;" class="headerButton goBack">
-                <ion-icon name="chevron-back-outline"></ion-icon>
-            </a>
-        </div>
-        <div class="pageTitle">Unit Telkom</div>
-        <div class="right"></div>
-    </div>
-    <br>
-    <br>
-    <div class="section" id="usern">
+    @section('title', 'Unit')
+    <x-intern-layout-header judul='Unit/Subsidiaries'></x-intern-layout-header>
 
-        <div id="rekappresensi">
-            <h2>Unit Telkom</h2>
-            <br>
-            <div class="row">
-                <div class="col-3">
-                    <a href="https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1669794565.54812857!800x800!85.png"
-                        style="text-decoration:none; color:inherit;">
-                        <div class="card">
-                            <div class="card-body text-center"
-                                style="padding:16px 12px !important; line-height:0.8rem;">
-                                <span class="badge bg-danger"
-                                    style="position:absolute; top:3px; right:10px; font-size:0.6rem; z-index:999"></span>
-                                <ion-icon name="map-outline" style="font-size:1.6rem;" class="text-primary mb-1">
-                                </ion-icon>
-                                <br>
-                                <span style="font-size: 0.8rem; font-weight:500">AOM <br><br></span>
-                            </div>
-                        </div>
-                    </a>
+    <div class="container p-3 mt-3">
+        <div>
+            <div class="card mb-3">
+                <img class="card-img-top"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5G2gSz4-eX9c_OQ1mTqBwMLHdJ2YplSY0Vg&s"
+                    alt="Card image cap" style="height: 6rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Telkom Indonesia Witel Sumbar-Jambi</h5>
+                    <p class="card-text">Saat ini memiliki 7 Unit is a wider card with supporting text below as a
+                        natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+            </div>
+
+            <!-- Card 1 -->
+            <div class="card mt-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <img src="https://awsimages.detik.net.id/community/media/visual/2022/10/29/ilustrasi-desain-kantor.jpeg?w=1200"
+                            class="img-fluid rounded-start me-3" alt="Image" style="width: 50px; height: 50px;">
+                        <span>Shared Service & General Support</span>
+                    </div>
+                    <button class="btn btn-link p-0" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseCard1" aria-expanded="false" aria-controls="collapseCard1">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
                 </div>
 
-
-
-                <div class="col-3">
-                    <div class="card">
-                        <a href="{{ route('intern.show', 'finance_collection') }}"
-                            style="text-decoration: none; color: inherit;">
-                            <div class="card-body text-center"
-                                style="padding:16px 12px !important; line-height:0.8rem;">
-                                <span class="badge bg-danger"
-                                    style="position:absolute; top:3px; right:10px; font-size:0.6rem; z-index:999"></span>
-                                <ion-icon name="call-outline" style="font-size:1.6rem;" class="text-success mb-1">
-                                </ion-icon>
-                                <br>
-                                <span style="font-size: 0.8rem; font-weight:500">Finance & <br> Collection</span>
-                            </div>
-                        </a>
+                <div id="collapseCard1" class="collapse">
+                    <div class="card-body">
+                        <p><strong>Ketua/Penanggung Jawab:</strong> Ani Wijaya<br>
+                            <strong>Lokasi Ruangan:</strong> Lantai 1, Gedung Utama
+                        </p>
+                        <hr class="my-2">
+                        <p class="text-justify">
+                            Shared Service & General Support bertanggung jawab atas pemastian tingkat kecukupan dukungan
+                            anggaran dan financial secara efektif dan efisien, efektivitas pengelolaan fungsi payment
+                            collection, tingkat produktivitas SDM termasuk pengalokasiannya, pelaksanaan pengelolaan
+                            tanggung jawab sosial & lingkungan (TJSL) dan rumah BUMN, learning event area, dan fungsi
+                            information system dan cyber security dalam mendukung pencapaian target dan program utama
+                            Telkom di lingkup geografis Regional yang dikelola.
+                        </p>
+                        <p class="mt-2 text-justify">
+                            Selain itu, unit ini juga bertanggung jawab atas pelaksanaan dan kelancaran berbagai
+                            aktivitas pendukung penyelenggaraan operasional program-program bisnis, khususnya dalam
+                            aspek-aspek yang terkait dengan public relation, asset and facility management, serta
+                            security and safety.
+                        </p>
                     </div>
                 </div>
+            </div>
 
-
-                <div class="col-3">
-                    <div class="card">
-<<<<<<< HEAD
-                        <a href="{{ route('intern.show', 'daman') }}" style="text-decoration: none; color: inherit;">
-                            <div class="card-body text-center"
-                                style="padding:16px 12px !important; line-height:0.8rem;">
-                                <span class="badge bg-danger"
-                                    style="position:absolute; top:3px; right:10px; font-size:0.6rem; z-index:999"></span>
-                                <ion-icon name="git-compare-outline" style="font-size:1.6rem;"
-                                    class="text-warning mb-1">
-                                </ion-icon>
-                                <br>
-                                <span style="font-size: 0.8rem; font-weight:500">Daman <br><br></span>
-                            </div>
-=======
-                        <a href="{{ route('intern.show', 'daman') }}"
-                        style="text-decoration: none; color: inherit;">
-                        <div class="card-body text-center" style="padding:16px 12px !important; line-height:0.8rem;">
-                            <span class="badge bg-danger"
-                                style="position:absolute; top:3px; right:10px; font-size:0.6rem; z-index:999"></span>
-                            <ion-icon name="git-compare-outline" style="font-size:1.6rem;" class="text-warning mb-1">
-                            </ion-icon>
-                            <br>
-                            <span style="font-size: 0.8rem; font-weight:500">Daman <br><br></span>
-                        </div>
->>>>>>> ab39fcc3943315fe01096456de35228b380e7cef
-                        </a>
+            <!-- Card 2 -->
+            <div class="card mt-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <img src="https://www.kantorkita.co.id/blog/wp-content/uploads/2022/10/Mengenal-Tata-Ruang-Kantor-dan-Jenisnya.jpg"
+                            class="img-fluid rounded-start me-3" alt="Image" style="width: 50px; height: 50px;">
+                        <span>Regional Solution & Operation</span>
                     </div>
+                    <button class="btn btn-link p-0" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseCard2" aria-expanded="false" aria-controls="collapseCard2">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
                 </div>
 
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-body text-center" style="padding:16px 12px !important; line-height:0.8rem;">
-                            <span class="badge bg-danger"
-                                style="position:absolute; top:3px; right:10px; font-size:0.6rem; z-index:999"></span>
-                            <ion-icon name="file-tray-full-outline" style="font-size:1.6rem;" class="text-danger mb-1">
-                            </ion-icon>
-                            <br>
-                            <span style="font-size: 0.8rem; font-weight:500">BGES <br> <br></span>
-                        </div>
+                <div id="collapseCard2" class="collapse">
+                    <div class="card-body">
+                        <p><strong>Ketua/Penanggung Jawab:</strong> Budi Santoso</p>
+                        <p><strong>Lokasi Ruangan:</strong> Lantai 2, Gedung Utama</p>
+                        <p class="mt-2 text-justify">
+                            Regional Solution & Operation bertanggung jawab atas pemastian tingkat kecukupan dukungan
+                            operasional dan solusi-solusi bisnis di tingkat regional.
+                        </p>
                     </div>
                 </div>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
+            </div>
 
-
-                <div class="col-3">
-                    <div class="card">
-<<<<<<< HEAD
-                        <a href="{{ route('intern.show', 'daman') }}" style="text-decoration: none; color: inherit;">
-                            <div class="card-body text-center"
-                                style="padding:16px 12px !important; line-height:0.8rem;">
-                                <span class="badge bg-danger"
-                                    style="position:absolute; top:3px; right:10px; font-size:0.6rem; z-index:999"></span>
-                                <i class="fa-sharp-duotone fa-solid fa-basketball-hoop text-primary mb-1"
-                                    style="font-size:1.6rem;"></i>
-                                </ion-icon>
-                                <br>
-                                <span style="font-size: 0.8rem; font-weight:500">Basket <br><br></span>
-                            </div>
-=======
-                    <a href="{{ route('intern.show', 'daman') }}"
-                    style="text-decoration: none; color: inherit;">
-                        <div class="card-body text-center" style="padding:16px 12px !important; line-height:0.8rem;">
-                            <span class="badge bg-danger"
-                                style="position:absolute; top:3px; right:10px; font-size:0.6rem; z-index:999"></span>
-                            <i class="fa-sharp-duotone fa-solid fa-basketball-hoop text-primary mb-1"
-                                style="font-size:1.6rem;"></i>
-                            </ion-icon>
-                            <br>
-                            <span style="font-size: 0.8rem; font-weight:500">Basket <br><br></span>
-                        </div>
->>>>>>> ab39fcc3943315fe01096456de35228b380e7cef
-                        </a>
+            <!-- Card 3 -->
+            <div class="card mt-3">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <img src="https://via.placeholder.com/50" class="img-fluid rounded-start me-3" alt="Image"
+                            style="width: 50px; height: 50px;">
+                        <span>Another Unit</span>
+                    </div>
+                    <button class="btn btn-link p-0" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseCard3" aria-expanded="false" aria-controls="collapseCard3">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                </div>
+                <div id="collapseCard3" class="collapse">
+                    <div class="card-body">
+                        <p>Unit ini bertanggung jawab atas ...</p>
                     </div>
                 </div>
-
-                <div class="col-3">
-<<<<<<< HEAD
-                    <div class="card">
-                        <a href="{{ route('intern.show', 'tennis_lapangan') }}"
-                            style="text-decoration: none; color: inherit;">
-=======
-                        <div class="card">
-                        <a href="{{ route('intern.show', 'tennis_lapangan') }}"
-                        style="text-decoration: none; color: inherit;">
->>>>>>> ab39fcc3943315fe01096456de35228b380e7cef
-                            <div class="card-body text-center"
-                                style="padding:16px 12px !important; line-height:0.8rem;">
-                                <span class="badge bg-danger"
-                                    style="position:absolute; top:3px; right:10px; font-size:0.6rem; z-index:999"></span>
-                                <i class="fa-regular fa-tennis-ball text-success mb-1" style="font-size:1.6rem;"></i>
-                                <br>
-                                <span style="font-size: 0.8rem; font-weight:500">Tennis <br> Lapangan<br></span>
-                            </div>
-<<<<<<< HEAD
-                        </a>
-                    </div>
-=======
-                            </a>
-                        </div>
->>>>>>> ab39fcc3943315fe01096456de35228b380e7cef
-                </div>
-
-
-                <div class="col-3">
-                    <div class="card">
-<<<<<<< HEAD
-                        <a href="{{ route('intern.show', 'panahan') }}" style="text-decoration: none; color: inherit;">
-                            <div class="card-body text-center"
-                                style="padding:16px 12px !important; line-height:0.8rem;">
-                                <span class="badge bg-danger"
-                                    style="position:absolute; top:3px; right:10px; font-size:0.6rem; z-index:999"></span>
-                                <i class="fa-regular fa-bow-arrow text-warning mb-1" style="font-size:1.6rem;"></i>
-                                <br>
-                                <span style="font-size: 0.8rem; font-weight:500">Panahan <br><br></span>
-                            </div>
-=======
-                    <a href="{{ route('intern.show', 'panahan') }}"
-                    style="text-decoration: none; color: inherit;">
-                        <div class="card-body text-center" style="padding:16px 12px !important; line-height:0.8rem;">
-                            <span class="badge bg-danger"
-                                style="position:absolute; top:3px; right:10px; font-size:0.6rem; z-index:999"></span>
-                            <i class="fa-regular fa-bow-arrow text-warning mb-1" style="font-size:1.6rem;"></i>
-                            <br>
-                            <span style="font-size: 0.8rem; font-weight:500">Panahan <br><br></span>
-                        </div>
->>>>>>> ab39fcc3943315fe01096456de35228b380e7cef
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-3">
-                    <div class="card">
-<<<<<<< HEAD
-                        <a href="{{ route('intern.show', 'mushola') }}" style="text-decoration: none; color: inherit;">
-                            <div class="card-body text-center"
-                                style="padding:16px 12px !important; line-height:0.8rem;">
-                                <span class="badge bg-danger"
-                                    style="position:absolute; top:3px; right:10px; font-size:0.6rem; z-index:999"></span>
-                                <i class="fa-regular fa-mosque text-danger mb-1" style="font-size:1.6rem;"></i>
-                                <br>
-                                <span style="font-size: 0.8rem; font-weight:500">Mushola <br> <br></span>
-                            </div>
-=======
-                    <a href="{{ route('intern.show', 'mushola') }}"
-                    style="text-decoration: none; color: inherit;">
-                        <div class="card-body text-center" style="padding:16px 12px !important; line-height:0.8rem;">
-                            <span class="badge bg-danger"
-                                style="position:absolute; top:3px; right:10px; font-size:0.6rem; z-index:999"></span>
-                            <i class="fa-regular fa-mosque text-danger mb-1" style="font-size:1.6rem;"></i>
-                            <br>
-                            <span style="font-size: 0.8rem; font-weight:500">Mushola <br> <br></span>
-                        </div>
->>>>>>> ab39fcc3943315fe01096456de35228b380e7cef
-                        </a>
-                    </div>
-                </div>
-
-
             </div>
         </div>
     </div>
-
-
-<<<<<<< HEAD
 </x-intern-layout-app>
-=======
-</x-intern-layout>
->>>>>>> ab39fcc3943315fe01096456de35228b380e7cef
