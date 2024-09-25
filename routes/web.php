@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guest'])->group(function () {
     Route::redirect('/', '/login');
+    Route::redirect('/logout', '/login');
 });
 
 

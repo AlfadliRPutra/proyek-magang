@@ -28,15 +28,12 @@
                 </div>
                 <div class="modal-body">
                     <form id="goalsForm" action="{{ route('intern.goal.store') }}" method="POST">
-                        @csrf <!-- Laravel CSRF protection -->
-                        <!-- Textbox for today's goals -->
+                        @csrf
                         <div class="mb-3">
                             <label for="goalsText" class="form-label">Today's Goals</label>
                             <input type="text" class="form-control" id="goalsText" name="description"
                                 placeholder="Enter today's goals" required>
                         </div>
-
-                        <!-- Dropdown for status -->
                         <div class="mb-3">
                             <label for="statusSelect" class="form-label">Status</label>
                             <select class="form-select" id="statusSelect" name="status" required>
@@ -67,22 +64,25 @@
                     @if ($goalsToday->isEmpty())
                         <p>No goals for today.</p>
                     @else
-                        @php $goal = $goalsToday->first(); @endphp <!-- Get the first (and only) goal -->
-                        <p class="d-flex align-items-center justify-content-between">
-                            <span>
-                                {{ $goal->description }} - Status:
-                            </span>
-                        <div class="d-flex align-items-center">
-                            <select class="form-select form-select-sm ms-2" id="statusSelect"
-                                onchange="saveStatus({{ $goal->id }})">
-                                <option value="In Progress" {{ $goal->status == 'In Progress' ? 'selected' : '' }}>In
-                                    Progress</option>
-                                <option value="Done" {{ $goal->status == 'Done' ? 'selected' : '' }}>Done</option>
-                            </select>
-                            <button class="btn btn-primary btn-sm ms-2"
-                                onclick="saveStatus({{ $goal->id }})">Save</button>
-                        </div>
-                        </p>
+                        @php $goal = $goalsToday->first(); @endphp
+                        <form action="{{ route('intern.goal.update', $goal->id) }}" method="POST">
+                            @csrf
+                            @method('PUT') <!-- Specify the PUT method -->
+                            <div class="mb-2 text-center"> <!-- Centering the content -->
+                                <div class="fw-bold fs-5">" {{ $goal->description }} "</div>
+                                <!-- Bold and larger font size -->
+                                <span>Status:</span>
+                                <div class="d-flex align-items-center">
+                                    <select class="form-select form-select-sm ms-2" name="status" required>
+                                        <option value="In Progress"
+                                            {{ $goal->status == 'In Progress' ? 'selected' : '' }}>In Progress</option>
+                                        <option value="Done" {{ $goal->status == 'Done' ? 'selected' : '' }}>Done
+                                        </option>
+                                    </select>
+                                    <button type="submit" class="btn btn-primary btn-sm ms-2">Save</button>
+                                </div>
+                            </div>
+                        </form>
                     @endif
                 </div>
             </div>
@@ -182,7 +182,6 @@
             let currentMonth = new Date().getMonth();
             let currentYear = new Date().getFullYear();
 
-            // Combine today's goals and done goals into events for the calendar
             const activities = @json(
                 $goalsToday->concat($goalsDone)->map(function ($goal) {
                     return ['date' => $goal->created_at->format('Y-m-d'), 'title' => $goal->description];
@@ -200,20 +199,17 @@
                     year: 'numeric'
                 });
 
-                // Adding empty cells for days before the 1st
                 for (let i = 0; i < firstDay; i++) {
                     const emptyCell = document.createElement('div');
                     calendarDays.appendChild(emptyCell);
                 }
 
-                // Loop through all days in the month
                 for (let day = 1; day <= daysInMonth; day++) {
                     const date = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
                     const dayCell = document.createElement('div');
                     dayCell.classList.add('day');
                     dayCell.innerHTML = day;
 
-                    // Loop through activities array to find matching events
                     activities.forEach(event => {
                         if (event.date === date) {
                             dayCell.innerHTML += `<div class="event">${event.title}</div>`;
@@ -244,42 +240,7 @@
                 showCalendar(currentMonth, currentYear);
             }
 
-            // Initial calendar display
             showCalendar(currentMonth, currentYear);
-
-            function openGoalsModal() {
-                const goalsModal = new bootstrap.Modal(document.getElementById('goalsModal'));
-                goalsModal.show();
-            }
-
-            function saveStatus(goalId) {
-                const statusSelect = document.querySelector(`#statusSelect`);
-                const status = statusSelect.value;
-                // Make an AJAX request to update the goal status
-                fetch(`/intern/goals/${goalId}`, {
-                        method: 'PATCH',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify({
-                            status: status
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            Swal.fire('Success!', 'Goal status updated.', 'success');
-                            // Update the goal count or refresh the calendar if necessary
-                        } else {
-                            Swal.fire('Error!', 'Failed to update goal status.', 'error');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        Swal.fire('Error!', 'An error occurred while updating.', 'error');
-                    });
-            }
         </script>
-        <x-intern-alert></x-intern-alert>
+    </div>
 </x-intern-layout-app>

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->timestamps();
 
 
-            $table->foreign('pengirim_id')->references('id_pengguna')->on('interns');
+            $table->foreign('pengirim_id')->references('id_pengguna')->on('users');
         });
     }
     /**

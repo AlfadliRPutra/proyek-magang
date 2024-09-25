@@ -60,7 +60,6 @@ class GoalController extends Controller
     }
 
 
-    // Update the status of an existing goal by ID
     public function update(Request $request, $id)
     {
         // Validate the request data
@@ -68,20 +67,19 @@ class GoalController extends Controller
             'status' => 'required|in:In Progress,Done',
         ]);
 
-        // Find the goal
-        $goal = Goal::where('id', $id)->where('id_pengguna', Auth::id())->first();
+        // Update the goal directly
+        $goal = Goal::find($id);
 
         if ($goal) {
-            $goal->status = $request->status;
-            $goal->save();
+            $goal->update(['status' => $request->status]);
 
-            // Redirect back with success message
             return redirect()->back()->with('success', 'Goal status updated successfully!');
         }
 
-        // Redirect back with error message if goal not found
         return redirect()->back()->with('error', 'Goal not found.');
     }
+
+
 
     // Get the current user's latest goal for today (optional, not needed if only for internal use)
     public function getGoal()

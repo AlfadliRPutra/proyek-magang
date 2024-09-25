@@ -46,40 +46,44 @@ class SuratController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            // Memvalidasi data dari permintaan
-            $validatedData = $request->validate([
-                'nama' => 'required|string|max:255',
-                'jenis' => 'required|string|max:255',
-                'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-            ]);
+        // Memvalidasi data dari permintaan
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255',
+            'jenis' => 'required|string|max:255',
+            'file' => 'nullable|file|mimes:pdf,doc,docx|max:6144', // 6MB dalam kilobyte
+        ]);
 
-            // Menangani unggahan file jika ada
-            if ($request->hasFile('file')) {
-                $file = $request->file('file');
-                $originalName = $file->getClientOriginalName();
-                $timestamp = Carbon::now()->format('Ymd_His');
-                $newFileName = $timestamp . '_' . $originalName;
-                $file->storeAs('surats', $newFileName, 'public');
-                $validatedData['file'] = $newFileName;
+        // Menangani unggahan file jika ada
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            // Cek ukuran file
+            if ($file->getSize() > 6144 * 1024) { // Maksimal 6MB
+                return redirect()->back()->with('error', 'Ukuran file terlalu besar. Maksimal 6MB.')->withInput();
             }
 
-            // Menambahkan ID pengguna yang terautentikasi sebagai pengirim_id
-            $validatedData['pengirim_id'] = Auth::user()->id_pengguna;
-            // Menambahkan status default
-            $validatedData['status'] = 0;
-            // Membuat data Surat baru
-            Surat::create($validatedData);
+            $originalName = $file->getClientOriginalName();
+            $timestamp = Carbon::now()->format('Ymd_His');
+            $newFileName = $timestamp . '_' . $originalName;
 
-            // Mengalihkan kembali dengan pesan sukses
-            return redirect()->route('intern.surat')->with('success', 'Surat berhasil dibuat!');
-        } catch (Exception $e) {
-            // Mencatat pesan kesalahan pada log
-            Log::error('Error creating surat: ' . $e->getMessage());
-            // Mengalihkan kembali dengan pesan kesalahan
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat membuat surat. Silakan coba lagi.');
+            // Simpan file
+            $file->storeAs('surats', $newFileName, 'public');
+            $validatedData['file'] = $newFileName;
         }
+
+
+        // Menambahkan ID pengguna yang terautentikasi sebagai pengirim_id
+        $validatedData['pengirim_id'] = Auth::user()->id_pengguna;
+
+        // Menambahkan status default
+        $validatedData['status'] = 0;
+        // Membuat data Surat baru
+        Surat::create($validatedData);
+
+        // Mengalihkan kembali dengan pesan sukses
+        return redirect()->route('intern.surat')->with('success', 'Surat berhasil dibuat!');
     }
+
 
     public function adminIndex()
     {

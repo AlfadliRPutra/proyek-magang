@@ -41,7 +41,8 @@
                 <div class="row gx-3">
                     <!-- Menu 1: Activity -->
                     <div class="col-3">
-                        <a href="{{ route('intern.goals') }}" class="d-block mb-2" style="font-size: 1.8rem;">
+                        <a href="{{ route('intern.goals') }}" class="d-block mb-2"
+                            style="font-size: 1.8rem; color: #f0143a;">
                             <i class="fas fa-bullseye"></i>
                         </a>
                         <span class="text-muted">Goals!</span>
@@ -49,7 +50,7 @@
 
                     <!-- Menu 2: Fasilitas -->
                     <div class="col-3">
-                        <a href="/venue/index.html" class="d-block mb-2" style="font-size: 1.8rem;">
+                        <a href="/venue/index.html" class="d-block mb-2" style="font-size: 1.8rem; color: #f0143a;">
                             <i class="fas fa-calendar-alt"></i>
                         </a>
                         <span class="text-muted">Fasilitas</span>
@@ -57,7 +58,7 @@
 
                     <!-- Menu 3: Histori -->
                     <div class="col-3">
-                        <a href="/presensi/history" class="d-block mb-2" style="font-size: 1.8rem;">
+                        <a href="/presensi/history" class="d-block mb-2" style="font-size: 1.8rem; color: #f0143a;">
                             <i class="fas fa-history"></i>
                         </a>
                         <span class="text-muted">Histori</span>
@@ -65,7 +66,8 @@
 
                     <!-- Menu 4: Divisi -->
                     <div class="col-3">
-                        <a href="{{ route('intern.unit') }}" class="d-block mb-2" style="font-size: 1.8rem;">
+                        <a href="{{ route('intern.unit') }}" class="d-block mb-2"
+                            style="font-size: 1.8rem; color: #f0143a;">
                             <i class="fas fa-sitemap"></i>
                         </a>
                         <span class="text-muted">Divisi</span>
@@ -73,7 +75,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- Presence Section -->
         <div class="card mb-4">
@@ -96,7 +97,7 @@
                                     @if ($hasPhoto && $photoPath)
                                         <img src="{{ url($photoPath) }}" class="img-fluid" style="max-width: 4rem;">
                                     @else
-                                        <i class="fas fa-camera-retro" style="font-size: 1.5rem;"></i>
+                                        <i class="fas fa-camera-retro" style="font-size: 1.5rem; color: #f0143a;"></i>
                                     @endif
                                     <div class="ms-3">
                                         <div class="fs-7 fw-bold mb-1">{{ $label }}</div>
@@ -197,9 +198,8 @@
                 </div>
             </div>
         </div>
+
     </div>
     <br>
     <br>
-
-    <div class="mb-3"></div>
 </x-intern-layout-app>

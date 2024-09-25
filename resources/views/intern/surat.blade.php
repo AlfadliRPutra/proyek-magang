@@ -2,30 +2,25 @@
     @section('title', 'Pengajuan Dokumen')
     <x-intern-layout-header judul='Pengajuan Dokumen'></x-intern-layout-header>
 
-    <div class="container">
+    <div class="container mt-3">
         <!-- Menampilkan pesan sukses atau error -->
         <div class="row">
-            <div class="col mb-2">
-                @php
-                    $messageSuccess = Session::get('success');
-                    $messageError = Session::get('error');
-                @endphp
-
-                @if ($messageSuccess)
-                    <div class="alert alert-success">{{ $messageSuccess }}</div>
+            <div class="col-12">
+                @if (Session::get('success'))
+                    <div id="alert_demo_3_3" class="d-none">{{ Session::get('success') }}</div>
                 @endif
 
-                @if ($messageError)
-                    <div class="alert alert-danger">{{ $messageError }}</div>
+                @if (Session::get('error'))
+                    <div id="alert_demo_3_2" class="d-none">{{ Session::get('error') }}</div>
                 @endif
             </div>
         </div>
 
         <!-- Daftar surat -->
         @forelse ($surats as $surat)
-            <div class="card mb-1 shadow-sm rounded">
+            <div class="card mb-2 shadow-sm rounded">
                 <!-- Header kartu dengan status warna -->
-                <h5 class="card-header {{ $surat->status == 1 ? 'bg-success' : 'bg-secondary' }} text-white small mb-0">
+                <h5 class="card-header {{ $surat->status == 1 ? 'bg-success' : 'bg-primary' }} text-white small mb-0">
                     {{ $surat->nama }}
                 </h5>
                 <div class="card-body p-2 small">
@@ -80,4 +75,61 @@
             </a>
         </div>
     </div>
-</x-intern-layout-app>
+    @push('myscript')
+        @push('scripts')
+            <script>
+                $(document).ready(function() {
+                    if ($("#alert_demo_3_3").length) {
+                        swal({
+                            title: 'Kelazz!',
+                            text: $("#alert_demo_3_3").text(),
+                            icon: 'success',
+                            button: {
+                                text: "OK",
+                                className: "btn btn-success"
+                            }
+                        });
+                    }
+
+                    if ($("#alert_demo_3_2").length) {
+                        swal({
+                            title: 'Error!',
+                            text: $("#alert_demo_3_2").text(),
+                            icon: 'error',
+                            button: {
+                                text: "OK",
+                                className: "btn btn-danger"
+                            }
+                        });
+                    }
+                    $('.delete-form').on('submit', function(e) {
+                        e.preventDefault(); // Mencegah form untuk dikirim langsung
+
+                        var form = $(this);
+                        swal({
+                            title: 'Konfirmasi Penghapusan',
+                            text: 'Apakah Anda yakin ingin menghapus item ini?',
+                            icon: 'warning',
+                            buttons: {
+                                cancel: {
+                                    text: "Batal",
+                                    visible: true,
+                                    className: "btn btn-secondary",
+                                    closeModal: true
+                                },
+                                confirm: {
+                                    text: "Hapus",
+                                    className: "btn btn-danger"
+                                }
+                            },
+                            dangerMode: true
+                        }).then((willDelete) => {
+                            if (willDelete) {
+                                form.off('submit').submit(); // Kirim form jika dikonfirmasi
+                            }
+                        });
+                    });
+                });
+            </script>
+        @endpush
+    </x-intern-layout-app>

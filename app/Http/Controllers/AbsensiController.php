@@ -43,24 +43,34 @@ class AbsensiController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi input
+        $validatedData = $request->validate([
+            'date_izin' => 'required|date',
+            'status' => 'required',
+            'keterangan' => 'required|string|max:255',
+        ]);
+
         // Mengambil ID pengguna saat ini
         $id_pengguna = Auth::user()->id_pengguna;
 
         // Membuat instance Absensi baru dan mengatur propertinya
         $absensi = new Absensi();
         $absensi->id_pengguna = $id_pengguna;
-        $absensi->date_izin = $request->input('date_izin');
-        $absensi->status = $request->input('status');
-        $absensi->keterangan = $request->input('keterangan');
+        $absensi->date_izin = $validatedData['date_izin'];
+        $absensi->status = $validatedData['status'];
+        $absensi->keterangan = $validatedData['keterangan'];
         $absensi->status_approved = 0; // Mengatur nilai default untuk status_approved
 
         // Menyimpan data Absensi ke database
         if ($absensi->save()) {
-            return redirect()->route('intern.absensi')->with(['success' => 'Data Berhasil Disimpan']);
+            // Menggunakan flash session untuk pesan sukses
+            return redirect()->route('intern.absensi')->with('success', 'Data Berhasil Disimpan');
         } else {
-            return redirect()->route('intern.absensi')->with(['error' => 'Data Gagal Disimpan']);
+            // Menggunakan flash session untuk pesan gagal
+            return redirect()->route('intern.absensi.form')->with('warning', 'Data Gagal Disimpan');
         }
     }
+
 
     /**
      * Display the specified resource.
