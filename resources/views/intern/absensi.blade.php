@@ -2,7 +2,7 @@
     @section('title', 'Ketidakhadiran')
     <x-intern-layout-header judul="Pengajuan Izin"></x-intern-layout-header>
 
-    <div class="container">
+    <div class="container px-2">
         <div class="row">
             <div class="col-12">
                 @if (Session::get('success'))
@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col">
                 @forelse ($dataizin as $di)
-                    <div class="card mb-2 shadow-sm rounded" style="margin-top: 0.5rem;">
+                    <div class="card mx-2 mb-2 shadow-sm rounded" style="margin-top: 0.5rem;">
                         <!-- Card Header -->
                         <div class="card-header {{ $di->status == 's' ? 'bg-warning' : 'bg-info' }} text-white d-flex justify-content-between align-items-center"
                             style="font-size: 0.75rem; padding: 0.5rem;">

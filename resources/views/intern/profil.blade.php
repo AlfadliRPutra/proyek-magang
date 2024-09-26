@@ -48,7 +48,7 @@
                             <ion-icon name="create-outline"></ion-icon>
                             Edit Profil
                         </a>
-                        <a href="" class="btn w-100 py-2 mb-2"
+                        <a href="{{ route('intern.ubah-pw') }}" class="btn w-100 py-2 mb-2"
                             style="background-color: #3A6D8C; color: white; font-size: 16px; border-radius: 8px;">
                             <ion-icon name="key-outline"></ion-icon>
                             Ubah Password

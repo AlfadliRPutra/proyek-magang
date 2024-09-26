@@ -25,7 +25,7 @@
                 </h5>
                 <div class="card-body p-2 small">
                     <!-- Baris pertama: Jenis Dokumen dan Status -->
-                    <div class="row">
+                    <div class="row px-2">
                         <div class="col-6">
                             <div class="d-flex align-items-center">
                                 <p class="mb-0 me-2">Jenis Dokumen:</p>
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <!-- Baris kedua: Tanggal Pengajuan dan Download -->
-                    <div class="row align-items-center">
+                    <div class="row px-2 align-items-center">
                         <div class="col-6">
                             <div class="d-flex align-items-center">
                                 <p class="mb-0 me-2">Tanggal:</p>

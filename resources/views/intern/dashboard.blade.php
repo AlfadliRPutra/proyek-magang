@@ -1,39 +1,43 @@
 <x-intern-layout-app>
     @section('title', 'Dashboard')
+    <div class="container">
+    <!-- User Info Card -->
+    <div class="card mb-4">
+        <div class="card-body p-3 text-center">
+            <!-- Logo Header -->
+            <div class="mb-4">
+                <img src="{{ asset('img/logo.png') }}" alt="Telkom Logo" style="max-width: 140px; height: auto;">
+            </div>
 
-    <div class="container mt-3">
-        <!-- User Info Section -->
-        <div class="card mb-4">
-            <div class="card-body p-3">
-                <div class="d-flex align-items-center mb-2">
-                    @php
-                        $user = Auth::user();
-                        $photo =
-                            $user->interns && $user->interns->foto
-                                ? Storage::url('photo-user/' . $user->interns->foto)
-                                : asset('img/heino.png');
-                    @endphp
-                    <img src="{{ $photo }}" alt="avatar" class="rounded-circle img-fluid me-3"
-                        style="width: 4.5rem; height: 4.5rem; object-fit: cover;">
-                    <div>
-                        <span class="fs-6 fw-bold mb-1">{{ ucwords($user->name) }}</span>
-                        <div class="d-flex align-items-center">
-                            <span class="me-2">Intern</span>
-                            <span class="text-muted">|</span>
-                            <span class="ms-2">
-                                <form method="POST" action="{{ route('logout') }}" class="d-inline">
-                                    @csrf
-                                    <a href="#" class="text-secondary"
-                                        onclick="event.preventDefault(); this.closest('form').submit();">
-                                        {{ __('Log Out') }}
-                                    </a>
-                                </form>
-                            </span>
-                        </div>
+            <div class="d-flex align-items-center mb-2">
+                @php
+                    $user = Auth::user();
+                    $photo =
+                        $user->interns && $user->interns->foto
+                            ? Storage::url('photo-user/' . $user->interns->foto)
+                            : asset('img/heino.png');
+                @endphp
+                <img src="{{ $photo }}" alt="avatar" class="rounded-circle img-fluid me-3"
+                    style="width: 4.5rem; height: 4.5rem; object-fit: cover;">
+                <div>
+                    <span class="fs-6 fw-bold mb-1">{{ ucwords($user->name) }}</span>
+                    <div class="d-flex align-items-center">
+                        <span class="me-2">Intern</span>
+                        <span class="text-muted">|</span>
+                        <span class="ms-2">
+                            <form method="POST" action="{{ route('logout') }}" class="d-inline">
+                                @csrf
+                                <a href="#" class="text-secondary"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </a>
+                            </form>
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
         <!-- Menu Section -->
         <div class="card mb-4">
@@ -77,7 +81,7 @@
         </div>
 
         <!-- Presence Section -->
-        <div class="card mb-4">
+        <div class="container">
             <div class="card-body p-3">
                 <div class="row row-cols-2 row-cols-sm-2 g-4">
                     @foreach (['Masuk' => 'in_hour', 'Pulang' => 'out_hour'] as $label => $hourField)
@@ -113,27 +117,29 @@
             </div>
         </div>
 
-        <!-- Rekap Presensi Section -->
-        <div class="card mb-4">
-            <div class="card-body p-3">
-                <span class="fs-6 fw-bold mb-4 d-block">Rekap Presensi</span>
-                <div class="row gx-3">
-                    @foreach ([['icon' => 'check-circle', 'count' => $rekapPresensi->jmlhadir, 'label' => 'Hadir'], ['icon' => 'calendar-check', 'count' => $rekapizin->jmlizin, 'label' => 'Izin'], ['icon' => 'notes-medical', 'count' => $rekapizin->jmlsakit, 'label' => 'Sakit'], ['icon' => 'clock', 'count' => $rekapPresensi->jmlterlambat, 'label' => 'Telat']] as $item)
-                        <div class="col-3">
-                            <div class="card">
-                                <div class="card-body p-3">
-                                    <i class="fas fa-{{ $item['icon'] }} text-muted" style="font-size: 1.6rem;"></i>
-                                    <div>
-                                        <span class="badge bg-light text-dark fs-8">{{ $item['count'] }}</span>
-                                        <div class="fs-8 text-muted">{{ $item['label'] }}</div>
-                                    </div>
-                                </div>
-                            </div>
+<!-- Rekap Presensi Section -->
+<div class="card mb-4">
+    <div class="card-body p-3">
+        <span class="fs-6 fw-bold mb-4 d-block">Rekap Presensi</span>
+        <div class="row gx-3">
+            @foreach ([['icon' => 'check-circle', 'count' => $rekapPresensi->jmlhadir, 'label' => 'Hadir'], ['icon' => 'calendar-check', 'count' => $rekapizin->jmlizin, 'label' => 'Izin'], ['icon' => 'notes-medical', 'count' => $rekapizin->jmlsakit, 'label' => 'Sakit'], ['icon' => 'clock', 'count' => $rekapPresensi->jmlterlambat, 'label' => 'Telat']] as $item)
+                <div class="col-3">
+                    <div class="card position-relative">
+                        <div class="position-absolute" style="top: 10px; right: 10px; font-size: 1rem; color: red;">
+                            {{ $item['count'] }}
                         </div>
-                    @endforeach
+                        <div class="card-body p-3 d-flex flex-column align-items-center justify-content-center text-center">
+                            <i class="fas fa-{{ $item['icon'] }} text-muted" style="font-size: 1.6rem;"></i>
+                            <div class="fs-8 text-muted mt-2">{{ $item['label'] }}</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
+    </div>
+</div>
+
+
 
         <!-- Presensi Tab -->
         <div class="card mb-4">
@@ -172,8 +178,8 @@
             </div>
         </div>
 
-        <!-- Events Section -->
-        <div class="card mb-4">
+ <!-- Events Section -->
+ <div class="card mb-4">
             <div class="card-body p-3">
                 <span class="fs-6 fw-bold mb-4 d-block">Events</span>
                 <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">

@@ -1,147 +1,178 @@
 <x-intern-layout-app>
-    @section('title','Presensi') 
+    @section('title','Presensi')
     @section('header')
-    <div class="appHeader bg-primary text-light">
+    <div class="appHeader text-light">
         <div class="left">
-            <a href="javascript:;" class="headerButton goBack">
+            <a href="/dashboard" class="headerButton goBack">
                 <ion-icon name="chevron-back-outline"></ion-icon>
             </a>
         </div>
-        <div class="pageTitle">E - Presensi</div>
-        <div class="right"></div>
     </div>
+    <div class="container">
+        <h1>Presensi Wajah</h1>
+        <div class="video-container">
+            <div class="video-frame">
+                <video id="video" autoplay></video>
+            </div>
+        </div>
+        <img id="captured-image" src="" alt="Foto Hasil" />
+        <button id="take-photo">Ambil Foto</button>
+        <div class="loading">
+            <img src="https://i.imgur.com/llF5iyg.gif" alt="Loading..."/>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        const capturedImage = document.getElementById('captured-image');
+        const takePhotoButton = document.getElementById('take-photo');
+        const loading = document.querySelector('.loading');
+
+        // Akses kamera
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => console.error("Error accessing camera: ", err));
+
+        // Fungsi untuk ambil foto
+        takePhotoButton.addEventListener('click', function() {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Tampilkan gambar hasil di img tag
+            const imageData = canvas.toDataURL('image/png');
+            capturedImage.src = imageData;
+            capturedImage.style.display = 'block';
+            loading.style.display = 'block'; // Tampilkan animasi loading
+
+            // Kirim data gambar ke server menggunakan AJAX
+            fetch('/submit-presensi', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    image: imageData
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                loading.style.display = 'none'; // Sembunyikan animasi loading setelah selesai
+                alert('Presensi berhasil disimpan!');
+            })
+            .catch(err => {
+                loading.style.display = 'none';
+                console.error('Error:', err);
+            });
+        });
+    </script>
+
     <style>
-        .webcam-capture,
-        .webcam-capture video {
-            display: inline-block;
-            width: 100% !important;
-            margin: auto;
-            height: auto !important;
-            border-radius: 15px;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
         }
-        #map {
-            height: 180px;
+
+        .container {
+            background-color: white;
+            border-radius: 25px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+            margin: 70px auto;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-size: 26px;
+            margin-bottom: 25px;
+            color: #333;
+            background: -webkit-linear-gradient(#007bff, #00d2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 75%;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #d4fc79, #96e6a1);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.2);
+        }
+
+        .video-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 5px;
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            display: none;
+            width: 100%;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
+        }
+
+        button:hover {
+            background-color: #e64a19;
+            transform: translateY(-3px);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .loading {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .loading img {
+            width: 50px;
+            height: 50px;
         }
     </style>
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    @endsection
-
-    <div class="row" style="margin-top: 680px">
-        <div class="col">
-            <input type="hidden" id="lokasi" />
-            <div class="webcam-capture"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            @if ($cek > 0)
-            <button id="takepresensi" class="btn btn-danger btn-block">
-                <ion-icon name="camera-outline"></ion-icon>
-                Presensi Pulang
-            </button>
-            @else
-            <button id="takepresensi" class="btn btn-success btn-block">
-                <ion-icon name="camera-outline"></ion-icon>
-                Presensi Kehadiran
-            </button>
-
-            @endif
-        </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col">
-            <div id="map"></div>
-        </div>
-    </div>
-
-
-
-@push('myscript')
-<script>
-    Webcam.set({
-        height: 480,
-        width: 640,
-        image_format: "jpeg",
-        jpeg_quality: 50,
-    });
-
-    Webcam.attach(".webcam-capture");
-
-    var lokasi = document.getElementById("lokasi");
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            successCallback,
-            errorCallback
-        );
-    }
-    function successCallback(position) {
-        lokasi.value =
-            position.coords.latitude + "," + position.coords.longitude;
-        var map = L.map("map").setView(
-            [position.coords.latitude, position.coords.longitude],
-            16
-        );
-        var location_office = "{{ $loc_office->location_office }}";
-        var loc = location_office.split(",");
-        var lat_office = loc[0];
-        var long_office = loc[1];
-        var radius = "{{ $loc_office->radius }}";
-        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            attribution:
-                '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        }).addTo(map);
-        var marker = L.marker([
-            position.coords.latitude,
-            position.coords.longitude,
-        ]).addTo(map);
-        var circle = L.circle([lat_office, long_office], {
-            color: "lightgreen",
-            fillColor: "green",
-            fillOpacity: 0.5,
-            radius: radius,
-        }).addTo(map);
-    }
-
-    function errorCallback() {}
-
-    $("#takepresensi").click(function (e) {
-        Webcam.snap(function (uri) {
-            image = uri;
-        });
-        var lokasi = $("#lokasi").val();
-        $.ajax({
-            type: "POST",
-            url: "/presensi/store",
-            data: {
-                _token: "{{ csrf_token() }}",
-                image: image,
-                lokasi: lokasi,
-            },
-            cache: false,
-            success: function (respond) {
-                var status = respond.split("|");
-                if (status[0] == "success") {
-                    Swal.fire({
-                        title: "Berhasil!",
-                        text: status[1],
-                        icon: "success",
-                    });
-                    setTimeout("location.href='/dashboard'", 3000);
-                } else {
-                    Swal.fire({
-                        title: "Error!",
-                        text: status[1],
-                        icon: "error",
-                    });
-                }
-            },
-        });
-    });
-</script>
-@endpush
 </x-intern-layout-app>

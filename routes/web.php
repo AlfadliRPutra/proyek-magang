@@ -132,5 +132,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/fasilitas', function () {return view('intern.fasilitas'); })->name('intern.fasilitas');
         Route::get('/fasilitas/{nama_fasilitas}', [FasilitasController::class, 'show'])->name('fasilitas.show');
 
+        // Route ke halaman ubah password
+        Route::get('/ubah-pw', function () { return view('intern.ubah-pw');})->name('intern.ubah-pw');
+
     });
 });

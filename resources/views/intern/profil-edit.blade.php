@@ -75,12 +75,6 @@
                             style="border: 1px solid #3A6D8C; background-color: #eaf2fb;" />
                     </div>
 
-                    <div class="form-group mb-4">
-                        <label for="email" style="color: #323b60;">Email</label>
-                        <input type="email" class="form-control" id="email" value="{{ Auth::user()->email }}"
-                            readonly style="border: 1px solid #3A6D8C; background-color: #eaf2fb;" />
-                    </div>
-
                     <div class="form-group">
                         <button type="submit" class="btn w-100 py-2"
                             style="background-color: #3A6D8C; color: white; font-size: 16px; border-radius: 8px;">
