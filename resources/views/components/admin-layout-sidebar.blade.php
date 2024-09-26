@@ -97,6 +97,13 @@
                         <p>Events</p>
                     </a>
                 </li>
+                <!-- Item navigasi untuk halaman Events -->
+                <li class="nav-item {{ request()->routeIs('admin.export') ? 'active' : 'inactive' }}">
+                    <a href="{{ route('admin.export') }}" class="collapsed" aria-expanded="false">
+                        <i class="fas fa-calendar-alt"></i>
+                        <p>Export</p>
+                    </a>
+                </li>
 
                 <!-- Seksi menu untuk bagian navigasi tambahan -->
                 <li class="nav-section">

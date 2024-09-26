@@ -12,7 +12,6 @@
                     <h5 class="card-title">Telkom Indonesia Witel Sumbar-Jambi</h5>
                     <p class="card-text">Saat ini memiliki 7 Unit is a wider card with supporting text below as a
                         natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                 </div>
             </div>
 

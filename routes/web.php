@@ -42,14 +42,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/dashboard', [DashboardController::class, 'dashboardadmin'])->name('admin.dashboard');
 
-        Route::get('/export/presensi/{id}', [ExportController::class, 'getInternPresensi'])->name('admin.intern.presensi');
+        Route::get('/export', [ExportController::class, 'index'])->name('admin.export');
+        Route::get('/export/presensi', [ExportController::class, 'getInternPresensi'])->name('admin.export.presensi');
 
         Route::get('/intern', [DataMasterController::class, 'index'])->name('admin.intern');
         Route::post('/intern/store', [DataMasterController::class, 'store'])->name('admin.intern.store');
         Route::get('/intern/{id}/edit', [DataMasterController::class, 'edit'])->name('admin.intern.edit');
         Route::post('/intern/{id}', [DataMasterController::class, 'update'])->name('admin.intern.update');
 
-        // Route::get('/intern/{id}/delete', [DataMasterController::class, 'destroy'])->name('admin.intern.delete');
         Route::delete('admin/intern/{id}/delete', [DataMasterController::class, 'destroy'])->name('admin.intern.delete');
 
         Route::get('/chart-aktif', [InternController::class, 'getChartData'])->name('chart.data');
