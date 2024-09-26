@@ -98,6 +98,35 @@
                     </div>
                 </div>
             </div>
+
+            <br><br><br>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            // JavaScript untuk mengganti ikon saat card diperluas atau dipendekkan
+            document.querySelectorAll('.toggle-icon').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var icon = button.querySelector('ion-icon');
+                    var isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+                    // Toggle icon name based on the expanded state
+                    icon.setAttribute('name', isExpanded ? 'chevron-up-outline' : 'chevron-down-outline');
+                });
+
+                var cardContent = document.querySelector(button.getAttribute('data-bs-target'));
+
+                // Update icon when the card content is shown or hidden
+                cardContent.addEventListener('show.bs.collapse', function () {
+                    button.querySelector('ion-icon').setAttribute('name', 'chevron-up-outline');
+                });
+
+                cardContent.addEventListener('hide.bs.collapse', function () {
+                    button.querySelector('ion-icon').setAttribute('name', 'chevron-down-outline');
+                });
+            });
+        </script>
     </div>
 </x-intern-layout-app>

@@ -12,7 +12,10 @@ use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\PresensilamaController;
 use App\Http\Controllers\SuratController;
+use App\Http\Controllers\FasilitasController;
+
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -102,8 +105,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/presensi/create', [PresensiController::class, 'index'])->name('intern.presensi.create');
         Route::post('/presensi/store', [PresensiController::class, 'store'])->name('intern.presensi.store');
 
+        Route::get('/profile', [InternProfileController::class, 'index'])->name('intern.profile');
         Route::get('/editprofile', [InternProfileController::class, 'edit'])->name('intern.profile.edit');
         Route::put('/updateprofile', [InternProfileController::class, 'update'])->name('intern.profile.update');
+
 
 
 
@@ -123,5 +128,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/surat', [SuratController::class, 'index'])->name('intern.surat');
         Route::get('/surat/create', [SuratController::class, 'create'])->name('intern.surat.create');
         Route::post('/surat/create/store', [SuratController::class, 'store'])->name('intern.surat.store');
+
+        Route::get('/fasilitas', function () {return view('intern.fasilitas'); })->name('intern.fasilitas');
+        Route::get('/fasilitas/{nama_fasilitas}', [FasilitasController::class, 'show'])->name('fasilitas.show');
+
     });
 });

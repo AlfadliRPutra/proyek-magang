@@ -50,8 +50,8 @@
 
                     <!-- Menu 2: Fasilitas -->
                     <div class="col-3">
-                        <a href="/venue/index.html" class="d-block mb-2" style="font-size: 1.8rem; color: #f0143a;">
-                            <i class="fas fa-calendar-alt"></i>
+                        <a href="{{ route('intern.fasilitas') }}" class="d-block mb-2" style="font-size: 1.8rem; color: #f0143a;">
+                            <i class="fas fa-building"></i>
                         </a>
                         <span class="text-muted">Fasilitas</span>
                     </div>
@@ -68,7 +68,7 @@
                     <div class="col-3">
                         <a href="{{ route('intern.unit') }}" class="d-block mb-2"
                             style="font-size: 1.8rem; color: #f0143a;">
-                            <i class="fas fa-sitemap"></i>
+                            <i class="fas fa-network-wired"></i>
                         </a>
                         <span class="text-muted">Divisi</span>
                     </div>
@@ -202,4 +202,6 @@
     </div>
     <br>
     <br>
+
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
 </x-intern-layout-app>

@@ -67,14 +67,7 @@
     <div class="lok">
         <h2>Lokasi</h2>
     </div>
-    <section class="contact" id="contact">
-        <div id="map">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d713.6541925354467!2d103.59580064589498!3d-1.6099023640546177!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e2588f356122a4d%3A0x1f2ec666b2d841e0!2sJl.%20Sumantri%20Brojonegoro%20No.54%2C%20Sungai%20Putri%2C%20Kec.%20Telanaipura%2C%20Kota%20Jambi%2C%20Jambi%2036124!5e1!3m2!1sid!2sid!4v1722561982449!5m2!1sid!2sid"
-                width="100%" height="400px" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </section>
+
 
     <br>
     <p></p>

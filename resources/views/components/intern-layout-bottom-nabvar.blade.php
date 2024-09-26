@@ -59,11 +59,11 @@
     </a>
 
     <!-- Link to Profile -->
-    <a href="{{ route('intern.profile.edit') }}"
-        class="btn btn-link {{ request()->routeIs('intern.profile.edit') ? 'text-primary bg-lightblue' : 'text-secondary bg-light' }} text-center d-flex flex-column align-items-center justify-content-center"
+    <a href="{{ route('intern.profile') }}"
+        class="btn btn-link {{ request()->routeIs('intern.profile') ? 'text-primary bg-lightblue' : 'text-secondary bg-light' }} text-center d-flex flex-column align-items-center justify-content-center"
         style="width: 3rem; height: 3rem; padding: 0; border-radius: 0.5rem;">
         <i class="fas fa-user" style="font-size: 1.25rem; margin: auto; color: #0077b6;"></i>
-        @if (request()->routeIs('intern.profile.edit'))
+        @if (request()->routeIs('intern.profil'))
             <strong class="d-block" style="font-size: 0.5rem; color: #0077b6;">PROFILE</strong>
         @endif
     </a>

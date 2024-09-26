@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<x-intern-layout>
+<x-intern-layout-app>
     <div class="appHeader text-light">
         <div class="left">
             <a href="javascript:;" class="headerButton goBack">
@@ -28,7 +28,7 @@
         <img src="../assets/img/Struktur-Organisasi.jpg" alt="Struktur Organisasi"
             style="width: 100%; max-width: 600px;">
     </a>
-    </x-intern-layout>
+    </x-intern-layout-app>
 </body>
 
 </html>

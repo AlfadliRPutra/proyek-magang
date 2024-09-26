@@ -1,7 +1,7 @@
 <x-intern-layout-app>
     @section('title', 'Profile')
-
-    <x-intern-layout-header judul='Edit profil'></x-intern-layout-header>
+ <x-intern-layout-header judul='Edit profil'></x-intern-layout-header>
+   
 
     <div class="container bg-light d-flex justify-content-center align-items-center"
         style="min-height: 80vh; padding: 1.25rem; border-radius: 10px; box-sizing: border-box;">

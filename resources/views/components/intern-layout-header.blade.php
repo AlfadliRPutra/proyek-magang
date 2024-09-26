@@ -5,7 +5,7 @@
             <i class="fas fa-chevron-left" style="font-size: 12px;"></i>
         </a>
     </div>
-    <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+    <div class="flex-grow-3 d-flex justify-content-center align-items-center">
         <span style="font-size: 16px; font-weight: 600; letter-spacing: 0.85px;">{{ $judul }}</span>
 
     </div>

@@ -20,6 +20,7 @@ class InternProfileController extends Controller
     public function index()
     {
         //
+        return view('intern/profil');
     }
 
     /**
