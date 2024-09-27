@@ -3,7 +3,7 @@
 
     <div class="page-inner">
         <div class="page-header">
-            <h3 class="fw-bold mb-3">Absensi</h3>
+            <h3 class="fw-bold mb-3">Izin</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                     <a href="{{ url('/') }}">
@@ -20,7 +20,7 @@
                     <i class="fas fa-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Absensi</a>
+                    <a href="#">Izin</a>
                 </li>
             </ul>
         </div>
