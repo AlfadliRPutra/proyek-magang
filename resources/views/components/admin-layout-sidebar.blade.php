@@ -70,7 +70,7 @@
                 <li class="nav-item {{ request()->routeIs('admin.absensi') ? 'active' : 'inactive' }}">
                     <a href="{{ route('admin.absensi') }}" class="collapsed" aria-expanded="false">
                         <i class="fas fa-user-times"></i>
-                        <p>Absensi</p>
+                        <p>Izin</p>
                     </a>
                 </li>
 
@@ -100,7 +100,8 @@
                 <!-- Item navigasi untuk halaman Events -->
                 <li class="nav-item {{ request()->routeIs('admin.export') ? 'active' : 'inactive' }}">
                     <a href="{{ route('admin.export') }}" class="collapsed" aria-expanded="false">
-                        <i class="fas fa-calendar-alt"></i>
+                        <i class="fas fa-file-export"></i>
+
                         <p>Export</p>
                     </a>
                 </li>
@@ -122,13 +123,7 @@
                     </a>
                 </li>
 
-                <!-- Item navigasi untuk halaman Bantuan -->
-                <li class="nav-item {{ request()->is('admin/help') ? 'active' : 'inactive' }}">
-                    <a href="#" class="collapsed" aria-expanded="false">
-                        <i class="fas fa-question-circle"></i>
-                        <p>Bantuan</p>
-                    </a>
-                </li>
+
             </ul>
         </div>
     </div>

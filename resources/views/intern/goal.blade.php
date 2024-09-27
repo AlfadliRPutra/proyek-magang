@@ -212,7 +212,10 @@
 
                     activities.forEach(event => {
                         if (event.date === date) {
-                            dayCell.innerHTML += `<div class="event">${event.title}</div>`;
+                            const eventDiv = document.createElement('div');
+                            eventDiv.classList.add('event');
+                            eventDiv.innerHTML = event.title;
+                            dayCell.appendChild(eventDiv);
                         }
                     });
 
@@ -221,26 +224,29 @@
             }
 
             function prevMonth() {
-                if (currentMonth === 0) {
+                currentMonth--;
+                if (currentMonth < 0) {
                     currentMonth = 11;
                     currentYear--;
-                } else {
-                    currentMonth--;
                 }
                 showCalendar(currentMonth, currentYear);
             }
 
             function nextMonth() {
-                if (currentMonth === 11) {
+                currentMonth++;
+                if (currentMonth > 11) {
                     currentMonth = 0;
                     currentYear++;
-                } else {
-                    currentMonth++;
                 }
                 showCalendar(currentMonth, currentYear);
             }
 
+            function openGoalsModal() {
+                const goalsModal = new bootstrap.Modal(document.getElementById('goalsModal'));
+                goalsModal.show();
+            }
+
+            // Initialize the calendar
             showCalendar(currentMonth, currentYear);
         </script>
-    </div>
 </x-intern-layout-app>

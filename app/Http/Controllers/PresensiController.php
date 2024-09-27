@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Goal;
 use App\Models\Kantor;
 use App\Models\Presensi;
 use Illuminate\Http\Request;
@@ -26,8 +27,16 @@ class PresensiController extends Controller
 
         // Get the office location with ID 1
         $loc_office = Kantor::find(1);
+        // Check if a goal has been created for today
+        $goalExists = Goal::where('id_pengguna', $id_pengguna)
+            ->whereDate('created_at', $today)
+            ->exists();
 
-        return view('intern.presensi', compact('cek', 'loc_office'));
+        if (!$goalExists) {
+            return redirect()->route('intern.goals')->with(['error' => 'Belum mengisi goals']);
+        }
+
+        return view('intern.presensi', compact('cek', 'loc_office', 'goalExists'));
     }
 
     /**
@@ -46,6 +55,8 @@ class PresensiController extends Controller
         $id_pengguna = Auth::user()->id_pengguna;
         $date_attendance = date("Y-m-d");
         $hour = date("H:i:s");
+
+
 
         // Retrieve office location using Eloquent
         $loc_office = Kantor::find(1);
@@ -107,7 +118,7 @@ class PresensiController extends Controller
 
         // Process the image
         $image = $request->image;
-        $folderPath = "public/uploads/presensi/";
+        $folderPath = "uploads/presensi/"; // Removed "public/" as it's handled by the disk
         $formatName = $id_pengguna . "-" . $date_attendance . "-" . $ket;
         $image_parts = explode(";base64", $image);
         $image_base64 = base64_decode($image_parts[1]);
@@ -125,8 +136,9 @@ class PresensiController extends Controller
                     'location_out' => $lokasi,
                 ]);
 
+                // Store the image in public disk
+                Storage::disk('public')->put($file, $image_base64);
                 echo "success|Waktunya pulang, Hati Hati Di Jalan|out";
-                Storage::put($file, $image_base64);
             } else {
                 // Create a new attendance record for check-in
                 $presensi = Presensi::create([
@@ -138,8 +150,9 @@ class PresensiController extends Controller
                 ]);
 
                 if ($presensi) {
+                    // Store the image in public disk
+                    Storage::disk('public')->put($file, $image_base64);
                     echo "success|Selamat Bekerja|in";
-                    Storage::put($file, $image_base64);
                 } else {
                     echo "error|Gagal Presensi Masuk, Hubungi Admin IT|in";
                 }

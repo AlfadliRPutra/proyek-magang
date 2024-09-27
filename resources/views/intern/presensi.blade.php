@@ -1,178 +1,160 @@
 <x-intern-layout-app>
-    @section('title','Presensi')
-    @section('header')
-    <div class="appHeader text-light">
-        <div class="left">
-            <a href="/dashboard" class="headerButton goBack">
-                <ion-icon name="chevron-back-outline"></ion-icon>
+    <header
+        class="bg-white text-dark py-2 px-3 d-flex justify-content-between align-items-center shadow-sm rounded-bottom"
+        style="border-bottom: 1px solid #ddd;">
+        <div class="d-flex align-items-center" style="width: 20px;">
+            <a href="{{ route('intern.dashboard') }}" class="btn btn-link text-dark p-0">
+                <i class="fas fa-chevron-left" style="font-size: 12px;"></i>
             </a>
         </div>
-    </div>
-    <div class="container">
-        <h1>Presensi Wajah</h1>
-        <div class="video-container">
-            <div class="video-frame">
-                <video id="video" autoplay></video>
+        <div class="flex-grow-3 d-flex justify-content-center align-items-center">
+            <span style="font-size: 16px; font-weight: 600; letter-spacing: 0.85px;">Presensi</span>
+
+        </div>
+        <div class="d-flex align-items-center" style="width: 20px;">
+            <!-- Ikon kanan atau div kosong -->
+        </div>
+    </header>
+
+
+    <div class="container mb-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6 d-flex justify-content-center mx-2">
+                <input type="hidden" id="lokasi" />
+                <!-- Bordered Container for Webcam Capture -->
+                <div class="border rounded p-3"
+                    style="width: 100%; max-width: 500px; overflow: hidden; border: 2px solid #f44336;">
+                    <!-- Red for Telkom -->
+                    <div class="webcam-capture" id="webcam-capture" style="width: 100%; height: 350px;">
+                    </div>
+                </div>
             </div>
         </div>
-        <img id="captured-image" src="" alt="Foto Hasil" />
-        <button id="take-photo">Ambil Foto</button>
-        <div class="loading">
-            <img src="https://i.imgur.com/llF5iyg.gif" alt="Loading..."/>
+
+        <div class="my-3 text-center mx-3">
+            <div class="fs-4 fw-bold" style="color: #0077b6;"> <!-- Blue for PAN -->
+                <i class="fas fa-map-marker-alt"></i> Lokasi Anda
+            </div>
+        </div>
+
+        <div class="row justify-content-center mx-3">
+            <div class="col-12 col-md-6 d-flex justify-content-center">
+                <!-- Bordered Container for Map -->
+                <div class="border rounded p-3"
+                    style="width: 100%; max-width: 500px; overflow: hidden; border: 2px solid #4caf50;">
+                    <!-- Green for Akhlak BUMN -->
+                    <div id="map" style="width: 100%; height: 300px;"></div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script>
-        const video = document.getElementById('video');
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        const capturedImage = document.getElementById('captured-image');
-        const takePhotoButton = document.getElementById('take-photo');
-        const loading = document.querySelector('.loading');
 
-        // Akses kamera
-        navigator.mediaDevices.getUserMedia({ video: true })
-            .then(stream => {
-                video.srcObject = stream;
-            })
-            .catch(err => console.error("Error accessing camera: ", err));
 
-        // Fungsi untuk ambil foto
-        takePhotoButton.addEventListener('click', function() {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            // Tampilkan gambar hasil di img tag
-            const imageData = canvas.toDataURL('image/png');
-            capturedImage.src = imageData;
-            capturedImage.style.display = 'block';
-            loading.style.display = 'block'; // Tampilkan animasi loading
 
-            // Kirim data gambar ke server menggunakan AJAX
-            fetch('/submit-presensi', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({
-                    image: imageData
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                loading.style.display = 'none'; // Sembunyikan animasi loading setelah selesai
-                alert('Presensi berhasil disimpan!');
-            })
-            .catch(err => {
-                loading.style.display = 'none';
-                console.error('Error:', err);
+
+    @push('styles')
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    @endpush
+
+    @push('myscript')
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Wait until the DOM is fully loaded
+                setTimeout(function() {
+                    const webcamCapture = document.getElementById('webcam-capture');
+
+                    // Set webcam dimensions explicitly with px
+                    Webcam.set({
+                        width: webcamCapture.offsetWidth, // Get width from the container
+                        height: webcamCapture.offsetHeight, // Get height from the container
+                        image_format: "jpeg",
+                        jpeg_quality: 50,
+                    });
+
+                    Webcam.attach("#webcam-capture");
+                }, 100); // Adjust delay if necessary
             });
-        });
-    </script>
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f7f6;
-            margin: 0;
-            padding: 0;
-        }
+            function setupMapAndGeolocation() {
+                var lokasi = document.getElementById("lokasi");
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        function(position) {
+                            lokasi.value = position.coords.latitude + "," + position.coords.longitude;
+                            var map = L.map("map").setView(
+                                [position.coords.latitude, position.coords.longitude],
+                                16
+                            );
+                            var location_office = "{{ $loc_office->location_office }}";
+                            var loc = location_office.split(",");
+                            var lat_office = loc[0];
+                            var long_office = loc[1];
+                            var radius = "{{ $loc_office->radius }}";
+                            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                                maxZoom: 19,
+                                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                            }).addTo(map);
+                            L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+                            L.circle([lat_office, long_office], {
+                                color: "lightgreen",
+                                fillColor: "green",
+                                fillOpacity: 0.5,
+                                radius: radius,
+                            }).addTo(map);
+                        },
+                        function() {
+                            // Handle errors
+                        }
+                    );
+                }
+            }
 
-        .container {
-            background-color: white;
-            border-radius: 25px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-            padding: 30px;
-            width: 100%;
-            max-width: 450px;
-            margin: 70px auto;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+            document.addEventListener('DOMContentLoaded', setupMapAndGeolocation);
 
-        h1 {
-            font-size: 26px;
-            margin-bottom: 25px;
-            color: #333;
-            background: -webkit-linear-gradient(#007bff, #00d2ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-top: 75%;
-            margin-bottom: 20px;
-            border-radius: 20px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #d4fc79, #96e6a1);
-            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.2);
-        }
-
-        .video-frame {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 5px;
-            background-color: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        img {
-            display: none;
-            width: 100%;
-            border-radius: 15px;
-            margin-top: 20px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        button {
-            background-color: #ff5722;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            cursor: pointer;
-            border-radius: 50px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 6px 20px rgba(255, 87, 34, 0.4);
-        }
-
-        button:hover {
-            background-color: #e64a19;
-            transform: translateY(-3px);
-        }
-
-        button:active {
-            transform: translateY(1px);
-        }
-
-        .loading {
-            display: none;
-            margin-top: 20px;
-        }
-
-        .loading img {
-            width: 50px;
-            height: 50px;
-        }
-    </style>
+            // Event handler for presensi button click
+            $("#takepresensi, #takepresensi-navbar").click(function(e) {
+                @if (is_null($goalExists))
+                    // Redirect to goals route if $goalExist is null
+                    window.location.href = "{{ route('intern.goals') }}";
+                @else
+                    Webcam.snap(function(uri) {
+                        var image = uri;
+                        var lokasi = $("#lokasi").val();
+                        $.ajax({
+                            type: "POST",
+                            url: "{{ route('intern.presensi.store') }}",
+                            data: {
+                                _token: "{{ csrf_token() }}",
+                                image: image,
+                                lokasi: lokasi,
+                            },
+                            cache: false,
+                            success: function(respond) {
+                                var status = respond.split("|");
+                                if (status[0] == "success") {
+                                    Swal.fire({
+                                        title: "Berhasil!",
+                                        text: status[1],
+                                        icon: "success",
+                                    });
+                                    setTimeout(function() {
+                                        location.href = '{{ route('intern.dashboard') }}';
+                                    }, 3000);
+                                } else {
+                                    Swal.fire({
+                                        title: "Error!",
+                                        text: status[1],
+                                        icon: "error",
+                                    });
+                                }
+                            }
+                        });
+                    });
+                @endif
+            });
+        </script>
+    @endpush
 </x-intern-layout-app>

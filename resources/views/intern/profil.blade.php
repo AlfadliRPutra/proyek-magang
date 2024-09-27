@@ -6,7 +6,7 @@
     <div class="container bg-light d-flex justify-content-center align-items-center"
         style="min-height: 80vh; padding: 1.25rem; border-radius: 10px; box-sizing: border-box;">
 
-        <div class="w-100 border border-secondary rounded p-4 shadow" style="max-width: 600px; background-color: #f0f8ff;">
+        <div class="w-100 border border-secondary rounded p-4" style="max-width: 600px; background-color: #f0f8ff;">
             <div class="row">
                 <div class="col-12 text-center mb-3">
                     <div class="avatar-section position-relative">
@@ -22,47 +22,52 @@
                 <div class="col-12">
                     <div class="form-group mb-4">
                         <label for="name" style="color: #323b60;">Nama Lengkap</label>
-                        <p class="form-control-plaintext" style="border: 1px solid #3A6D8C; background-color: #eaf2fb;">
+                        <p class="form-control-plaintext ms-2"
+                            style="border: 1px solid #3A6D8C; background-color: #eaf2fb;">
                             {{ ucwords(Auth::user()->name) }}
                         </p>
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="no_hp" style="color: #323b60;">No Handphone</label>
-                        <p class="form-control-plaintext" style="border: 1px solid #3A6D8C; background-color: #eaf2fb;">
+                        <p class="form-control-plaintext ms-2"
+                            style="border: 1px solid #3A6D8C; background-color: #eaf2fb;">
                             {{ Auth::user()->interns->no_phone ?? 'N/A' }}
                         </p>
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="email" style="color: #323b60;">Email</label>
-                        <p class="form-control-plaintext" style="border: 1px solid #3A6D8C; background-color: #eaf2fb;">
+                        <p class="form-control-plaintext ms-2"
+                            style="border: 1px solid #3A6D8C; background-color: #eaf2fb;">
                             {{ Auth::user()->email }}
                         </p>
                     </div>
 
-                    <!-- Tombol Edit Profil, Ubah Password, dan Logout -->
+                    <!-- Buttons for Edit Profile, Change Password, and Logout -->
                     <div class="form-group">
                         <a href="{{ route('intern.profile.edit') }}" class="btn w-100 py-2 mb-2"
-                            style="background-color: #3A6D8C; color: white; font-size: 16px; border-radius: 8px;">
-                            <ion-icon name="create-outline"></ion-icon>
+                            style="background-color: #3A6D8C; color: white; font-size: 12px; border-radius: 8px;">
+                            <i class="fas fa-user-edit" style="margin-right: 5px;"></i>
                             Edit Profil
                         </a>
                         <a href="{{ route('intern.ubah-pw') }}" class="btn w-100 py-2 mb-2"
-                            style="background-color: #3A6D8C; color: white; font-size: 16px; border-radius: 8px;">
-                            <ion-icon name="key-outline"></ion-icon>
+                            style="background-color: #3A6D8C; color: white; font-size: 12px; border-radius: 8px;">
+                            <i class="fas fa-key" style="margin-right: 5px;"></i>
                             Ubah Password
                         </a>
-                        <br><br>
-                        <form method="POST" action="{{ route('logout') }}">
+
+                        <form method="POST" action="{{ route('logout') }}" class="w-100 py-2 mb-2">
                             @csrf
-                            <button type="submit" class="btn w-100 py-2"
-                                style="background-color: #FF4500; color: white; font-size: 16px; border-radius: 8px;">
-                                <ion-icon name="log-out-outline"></ion-icon>
-                                Logout
+                            <button type="submit" class="btn w-100 d-flex align-items-center justify-content-center"
+                                style="background-color: #FF4500; color: white; font-size: 12px; border-radius: 8px; padding: 8px 16px;">
+                                <i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i>
+                                {{ __('Logout') }}
                             </button>
                         </form>
                     </div>
+
+
                 </div>
             </div>
         </div>

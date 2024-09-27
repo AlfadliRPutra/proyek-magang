@@ -38,9 +38,7 @@ class AbsensiController extends Controller
         return view('intern.absensi-form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         // Validasi input
@@ -48,6 +46,7 @@ class AbsensiController extends Controller
             'date_izin' => 'required|date',
             'status' => 'required',
             'keterangan' => 'required|string|max:255',
+            'file' => 'nullable|file|mimes:pdf|max:6144', // Menambahkan validasi untuk file PDF (maksimum 6MB)
         ]);
 
         // Mengambil ID pengguna saat ini
@@ -61,6 +60,14 @@ class AbsensiController extends Controller
         $absensi->keterangan = $validatedData['keterangan'];
         $absensi->status_approved = 0; // Mengatur nilai default untuk status_approved
 
+        // Menyimpan file jika ada
+        if ($request->hasFile('file')) {
+            // Mengambil file dan menyimpannya ke disk 'public'
+            $filePath = $request->file('file')->store('absensi', 'public');
+            // Menyimpan nama file ke database
+            $absensi->file = $filePath; // Kolom file di model Absensi
+        }
+
         // Menyimpan data Absensi ke database
         if ($absensi->save()) {
             // Menggunakan flash session untuk pesan sukses
@@ -72,20 +79,22 @@ class AbsensiController extends Controller
     }
 
 
+
+
+
     /**
      * Display the specified resource.
      */
     public function show()
     {
         // Mengambil data absensi dengan join ke tabel users dan mengurutkan berdasarkan tanggal izin
-        $izinsakit = DB::table('absensi')
-            ->join('users', 'absensi.id_pengguna', '=', 'users.id_pengguna')
-            ->orderBy('date_izin', 'desc')
+        $absensis = Absensi::with('pengguna') // Assuming you have a relationship defined in Absensi model
             ->get();
 
         // Mengembalikan tampilan dengan data izin sakit
-        return view('admin.absensi', compact('izinsakit'));
+        return view('admin.absensi', compact('absensis'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -100,22 +109,23 @@ class AbsensiController extends Controller
      */
     public function update(Request $request)
     {
-        // Mengambil status_approved dan id_izinsakit_form dari permintaan
-        $status_approved = $request->status_approved;
-        $id_izinsakit_form = $request->id_izinsakit_form;
-
-        // Memperbarui status_approved pada data absensi berdasarkan ID
-        $update = DB::table('absensi')->where('id', $id_izinsakit_form)->update([
-            'status_approved' => $status_approved
+        // Validate the incoming request
+        $request->validate([
+            'id' => 'required|exists:absensi,id',
+            'status_approved' => 'required|in:1,2',
         ]);
 
-        // Mengalihkan kembali dengan pesan sukses atau peringatan
-        if ($update) {
-            return Redirect::back()->with(['success' => 'Data Berhasil Diupdate']);
-        } else {
-            return Redirect::back()->with(['warning' => 'Data Gagal Diupdate']);
-        }
+        // Update the status in the database
+        $update = DB::table('absensi')->where('id', $request->id)->update([
+            'status_approved' => $request->status_approved
+        ]);
+
+        // Redirect back with a success or warning message
+        return $update
+            ? Redirect::back()->with('success', 'Data Berhasil Diupdate')
+            : Redirect::back()->with('warning', 'Data Gagal Diupdate');
     }
+
 
     /**
      * Remove the specified resource from storage.

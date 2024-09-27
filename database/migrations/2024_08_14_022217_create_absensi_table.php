@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('status');
             $table->string('keterangan');
             $table->string('status_approved');
+            $table->string('file');
             $table->timestamps();
 
             $table->foreign('id_pengguna')->references('id_pengguna')->on('users')->onDelete('cascade');

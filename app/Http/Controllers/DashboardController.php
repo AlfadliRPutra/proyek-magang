@@ -48,6 +48,7 @@ class DashboardController extends Controller
         // Mengambil ID pengguna yang terautentikasi
         $id_pengguna = Auth::user()->id_pengguna;
 
+
         // Mengambil data presensi hari ini untuk pengguna terautentikasi
         $presensiToday = DB::table('presensi')->where('id_pengguna', $id_pengguna)->where('date_attendance', $today)->first();
 

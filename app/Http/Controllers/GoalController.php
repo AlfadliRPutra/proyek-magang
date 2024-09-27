@@ -51,8 +51,8 @@ class GoalController extends Controller
 
         // Lanjutkan penyimpanan goal jika belum ada
         $goal = new Goal();
-        $goal->user_id = $userId;
-        $goal->goal = $request->input('goal');
+        $goal->id_pengguna = $userId;
+        $goal->description = $request->input('description');
         $goal->status = $request->input('status');
         $goal->save();
 

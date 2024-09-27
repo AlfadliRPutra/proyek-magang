@@ -64,8 +64,12 @@
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-bell"></i>
                         @if ($totalNotifications > 0)
-                            <span class="notification danger">{{ $totalNotifications }}</span>
+                            <span class="notification danger"
+                                style="background-color: #ff4d4d; color: white; font-size: 12px; padding: 2px 6px; border-radius: 12px;">
+                                {{ $totalNotifications }}
+                            </span>
                         @endif
+
 
                     </a>
                     <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">

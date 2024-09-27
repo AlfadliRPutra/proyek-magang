@@ -16,9 +16,6 @@ use App\Http\Controllers\FasilitasController;
 
 use Illuminate\Support\Facades\Route;
 
-
-
-
 Route::middleware(['guest'])->group(function () {
     Route::redirect('/', '/login');
     // Route::redirect('/logout', '/login');
@@ -129,11 +126,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/surat/create', [SuratController::class, 'create'])->name('intern.surat.create');
         Route::post('/surat/create/store', [SuratController::class, 'store'])->name('intern.surat.store');
 
-        Route::get('/fasilitas', function () {return view('intern.fasilitas'); })->name('intern.fasilitas');
+        Route::get('/fasilitas', function () {
+            return view('intern.fasilitas');
+        })->name('intern.fasilitas');
         Route::get('/fasilitas/{nama_fasilitas}', [FasilitasController::class, 'show'])->name('fasilitas.show');
 
         // Route ke halaman ubah password
-        Route::get('/ubah-pw', function () { return view('intern.ubah-pw');})->name('intern.ubah-pw');
-
+        Route::get('/ubah-pw', function () {
+            return view('intern.ubah-pw');
+        })->name('intern.ubah-pw');
     });
 });

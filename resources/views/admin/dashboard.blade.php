@@ -11,85 +11,99 @@
         </div>
         <div class="row">
             <div class="col-sm-6 col-md-3">
-                <div class="card card-stats card-round">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-icon">
-                                <div class="icon-big text-center icon-success bubble-shadow-small">
-                                    <i class="fas fa-check-circle"></i>
+                <a href="{{ route('admin.presensi.monitoring') }}" class="text-decoration-none">
+                    <div class="card card-stats card-round">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-success bubble-shadow-small">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col col-stats ms-3 ms-sm-0">
-                                <div class="numbers">
-                                    <p class="card-category">Hadir</p>
-                                    <h4 class="card-title">{{ $rekapPresensi->jmlhadir }}</h4>
+                                <div class="col col-stats ms-3 ms-sm-0">
+                                    <div class="numbers">
+                                        <p class="card-category">Hadir</p>
+                                        <h4 class="card-title">{{ $rekapPresensi->jmlhadir }}</h4>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
+
             <div class="col-sm-6 col-md-3">
-                <div class="card card-stats card-round">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-icon">
-                                <div class="icon-big text-center icon-warning bubble-shadow-small">
-                                    <i class="fas fa-calendar-check"></i>
+                <a href="{{ route('admin.absensi') }}" class="text-decoration-none">
+                    <div class="card card-stats card-round">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-warning bubble-shadow-small">
+                                        <i class="fas fa-calendar-check"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col col-stats ms-3 ms-sm-0">
-                                <div class="numbers">
-                                    <p class="card-category">Izin</p>
-                                    <h4 class="card-title">
-                                        {{ $rekapizin['jmlizin'] != null ? $rekapizin['jmlizin'] : 0 }}
-                                    </h4>
+                                <div class="col col-stats ms-3 ms-sm-0">
+                                    <div class="numbers">
+                                        <p class="card-category">Izin</p>
+                                        <h4 class="card-title">
+                                            {{ $rekapizin['jmlizin'] != null ? $rekapizin['jmlizin'] : 0 }}
+                                        </h4>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
+
             <div class="col-sm-6 col-md-3">
-                <div class="card card-stats card-round ">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-icon">
-                                <div class="icon-big text-center icon-warning bubble-shadow-small">
-                                    <i class="fas fa-bed"></i>
+                <a href="{{ route('admin.absensi') }}" class="text-decoration-none">
+                    <div class="card card-stats card-round ">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-warning bubble-shadow-small">
+                                        <i class="fas fa-bed"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col col-stats ms-3 ms-sm-0">
-                                <div class="numbers">
-                                    <p class="card-category">Sakit</p>
-                                    <h4 class="card-title">
-                                        {{ $rekapizin['jmlsakit'] != null ? $rekapizin['jmlsakit'] : 0 }}</h4>
+                                <div class="col col-stats ms-3 ms-sm-0">
+                                    <div class="numbers">
+                                        <p class="card-category">Sakit</p>
+                                        <h4 class="card-title">
+                                            {{ $rekapizin['jmlsakit'] != null ? $rekapizin['jmlsakit'] : 0 }}
+                                        </h4>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
+
             <div class="col-sm-6 col-md-3">
-                <div class="card card-stats card-round">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                            <div class="col-icon">
-                                <div class="icon-big text-center icon-danger bubble-shadow-small">
-                                    <i class="fas fa-clock"></i>
+                <a href="{{ route('admin.presensi.monitoring') }}" class="text-decoration-none">
+                    <div class="card card-stats card-round">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-danger bubble-shadow-small">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col col-stats ms-3 ms-sm-0">
-                                <div class="numbers">
-                                    <p class="card-category">Telat</p>
-                                    <h4 class="card-title">
-                                        {{ $rekapPresensi->jmltelat != null ? $rekapPresensi->jmltelat : 0 }} </h4>
+                                <div class="col col-stats ms-3 ms-sm-0">
+                                    <div class="numbers">
+                                        <p class="card-category">Telat</p>
+                                        <h4 class="card-title">
+                                            {{ $rekapPresensi->jmltelat != null ? $rekapPresensi->jmltelat : 0 }}
+                                        </h4>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
+
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -364,11 +378,7 @@
                                     backgroundColor: "rgba(165, 214, 167, 1)", // Warna lembut untuk hadir
                                     data: hadir
                                 },
-                                {
-                                    label: "Terlambat",
-                                    backgroundColor: "rgba(255, 224, 130, 1)", // Warna lembut untuk keterlambatan
-                                    data: terlambat
-                                },
+
                                 {
                                     label: "Tidak Hadir",
                                     backgroundColor: "rgba(239, 154, 154, 1)", // Warna lembut untuk tidak hadir

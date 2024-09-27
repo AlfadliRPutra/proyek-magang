@@ -16,6 +16,7 @@ class Absensi extends Model
         'status',
         'keterangan',
         'status_approved',
+        'file',
     ];
 
     public function pengguna()

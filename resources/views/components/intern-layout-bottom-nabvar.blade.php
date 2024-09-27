@@ -29,24 +29,25 @@
                 <button id="takepresensi-navbar"
                     class="btn btn-block d-flex flex-column align-items-center justify-content-center"
                     style="background-color: #f7e7a6; color: #333; padding: 0; border: none;">
-                    <i class="fas fa-camera" style="font-size: 1.25rem; margin: auto; color: #333;"></i>
+                    <i class="fas fa-camera" style="font-size: 1.25rem; margin: auto;"></i>
                 </button>
             </div>
         @else
             <div class="btn rounded-circle d-flex align-items-center justify-content-center"
-                style="width: 3rem; height: 3rem; background-color: #00b4d8; color: white; padding: 0; border: 2px solid #ddd;">
+                style="width: 3rem; height: 3rem; background-color: #a0c4ff; color: white; padding: 0; border: 2px solid #ddd;">
                 <a href="#" id="takepresensi-navbar" style="color: white; padding: 0;">
-                    <i class="fas fa-camera" style="font-size: 1.25rem; margin: auto; color: white;"></i>
+                    <i class="fas fa-camera" style="font-size: 1.25rem; margin: auto;"></i>
                 </a>
             </div>
         @endif
     @else
         <a href="{{ route('intern.presensi.create') }}"
             class="btn rounded-circle d-flex align-items-center justify-content-center"
-            style="width: 3rem; height: 3rem; background-color: #00b4d8; color: white; padding: 0; border: 2px solid #ddd;">
-            <i class="fas fa-camera" style="font-size: 1.25rem; margin: auto; color: white;"></i>
+            style="width: 3rem; height: 3rem; background-color: #a0c4ff; color: white; padding: 0; border: 2px solid #ddd;">
+            <i class="fas fa-camera" style="font-size: 1.25rem; margin: auto;"></i>
         </a>
     @endif
+
 
     <!-- Link to Attendance -->
     <a href="{{ route('intern.absensi') }}"

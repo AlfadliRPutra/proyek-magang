@@ -7,21 +7,13 @@
         $messageError = Session::get('error');
     @endphp
 
-    @if ($messageSuccess)
-        <div class="alert alert-success">{{ $messageSuccess }}</div>
-    @endif
-
-    @if ($messageError)
-        <div class="alert alert-danger">{{ $messageError }}</div>
-    @endif
-
     <div class="container bg-light d-flex justify-content-center align-items-center"
         style="min-height: 80vh; padding: 20px; border-radius: 10px;">
         <form action="{{ route('intern.absensi.form.store') }}" method="POST" id="frmIzin"
-            class="w-100 border border-secondary rounded p-4 shadow"
-            style="max-width: 600px; background-color: #f0f8ff;" enctype="multipart/form-data">
+            class="w-100 border border-secondary rounded p-4" style="max-width: 600px; background-color: #f0f8ff;"
+            enctype="multipart/form-data">
             @csrf
-            
+
             <!-- Input Tanggal Izin -->
             <div class="form-group mb-2">
                 <label for="date_izin" class="form-label" style="color: #323b60;">Tanggal Izin</label>
@@ -58,8 +50,7 @@
             <div class="form-group mb-4">
                 <button class="btn w-100 py-2"
                     style="background-color: #3A6D8C; color: white; font-size: 16px; border-radius: 8px;">
-                    <ion-icon name="paper-plane-outline"></ion-icon>
-                    Kirim Pengajuan
+                    <i class="fas fa-paper-plane"></i> Kirim Pengajuan
                 </button>
             </div>
         </form>
@@ -75,72 +66,72 @@
                     var file = $("#fileSurat").val();
 
                     if (!date_izin) {
-                        swal({
-                            title: 'Oops !',
+                        e.preventDefault();
+                        swal.fire({
+                            title: 'Oops!',
                             text: 'Tanggal Harus Diisi',
                             icon: 'warning',
-                            button: {
-                                text: "OK",
-                                className: "btn btn-warning"
+                            confirmButtonColor: '#3A6D8C',
+                            customClass: {
+                                confirmButton: 'btn btn-warning'
                             }
                         });
-                        e.preventDefault();
                     } else if (!status) {
-                        swal({
-                            title: 'Oops !',
+                        e.preventDefault();
+                        swal.fire({
+                            title: 'Oops!',
                             text: 'Status Harus Diisi',
                             icon: 'warning',
-                            button: {
-                                text: "OK",
-                                className: "btn btn-warning"
+                            confirmButtonColor: '#3A6D8C',
+                            customClass: {
+                                confirmButton: 'btn btn-warning'
                             }
                         });
-                        e.preventDefault();
                     } else if (!keterangan) {
-                        swal({
-                            title: 'Oops !',
+                        e.preventDefault();
+                        swal.fire({
+                            title: 'Oops!',
                             text: 'Keterangan Harus Diisi',
                             icon: 'warning',
-                            button: {
-                                text: "OK",
-                                className: "btn btn-warning"
+                            confirmButtonColor: '#3A6D8C',
+                            customClass: {
+                                confirmButton: 'btn btn-warning'
                             }
                         });
-                        e.preventDefault();
                     } else if (!file) {
-                        swal({
-                            title: 'Oops !',
+                        e.preventDefault();
+                        swal.fire({
+                            title: 'Oops!',
                             text: 'File Dokumen Harus Diupload',
                             icon: 'warning',
-                            button: {
-                                text: "OK",
-                                className: "btn btn-warning"
+                            confirmButtonColor: '#3A6D8C',
+                            customClass: {
+                                confirmButton: 'btn btn-warning'
                             }
                         });
-                        e.preventDefault();
                     }
                 });
 
                 if ($("#alert_demo_3_3").length) {
-                    swal({
+                    swal.fire({
                         title: 'Berhasil!',
                         text: $("#alert_demo_3_3").text(),
                         icon: 'success',
-                        button: {
-                            text: "OK",
-                            className: "btn btn-success"
+                        confirmButtonColor: '#3A6D8C',
+                        customClass: {
+                            confirmButton: 'btn btn-success'
                         }
                     });
                 }
 
                 if ($("#alert_demo_3_2").length) {
-                    swal({
+                    swal.fire({
                         title: 'Error!',
                         text: $("#alert_demo_3_2").text(),
                         icon: 'error',
-                        button: {
-                            text: "OK",
-                            className: "btn btn-danger"
+                        confirmButtonColor: '#3A6D8C',
+                        customClass: {
+                            confirmButton: 'btn btn-danger'
                         }
                     });
                 }
