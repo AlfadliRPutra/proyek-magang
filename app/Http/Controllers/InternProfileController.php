@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Campus;
 use App\Models\User;
 use App\Models\Intern;
+use App\Models\UnitListing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -54,7 +56,12 @@ class InternProfileController extends Controller
     {
         $id_pengguna = Auth::user()->id_pengguna;
         $intern = DB::table('interns')->where('id_pengguna', $id_pengguna)->first();
-        return view('intern.profil-edit', compact('intern'));
+
+        // Correctly retrieve units and campuses
+        $units = UnitListing::get();
+        $campuses = Campus::get();
+
+        return view('intern.profil-edit', compact('intern', 'units', 'campuses'));
     }
 
     /**
@@ -62,7 +69,8 @@ class InternProfileController extends Controller
      */
     public function update(Request $request)
     {
-        $id_pengguna = $request->input('id_pengguna');
+        $id_pengguna = auth()->user()->id_pengguna;
+
         $user = User::where('id_pengguna', $id_pengguna)->first();
         $intern = Intern::where('id_pengguna', $id_pengguna)->first();
 
@@ -73,9 +81,10 @@ class InternProfileController extends Controller
         // Validate the request data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'no_hp' => 'required|string|max:15',
-            'password' => 'nullable|string|min:8',
+            'no_hp' => 'required|string|max:20',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'campus_id' => 'required_without:other_campus', // Require campus_id unless other_campus is filled
+            'other_campus' => 'nullable|string|max:255', // Validate other_campus
         ]);
 
         if ($validator->fails()) {
@@ -87,17 +96,28 @@ class InternProfileController extends Controller
             'name' => $request->name,
         ];
 
-        if ($request->filled('password')) {
-            $userData['password'] = Hash::make($request->password);
-        }
-
         // Update User model
         User::where('id_pengguna', $id_pengguna)->update($userData);
 
         // Prepare data for Intern model
         $internData = [
             'no_phone' => $request->no_hp,
+            'unit_id' => $request->unit_id,
+            'campus_id' => null, // Initialize campus_id as null
         ];
+
+        // Check if 'other_campus' field is filled
+        if ($request->input('other_campus')) {
+            // Create a new campus entry
+            $newCampus = Campus::create([
+                'nama' => $request->other_campus,
+            ]);
+            // Set the campus_id to the new campus's ID
+            $internData['campus_id'] = $newCampus->id;
+        } else {
+            // If a campus is selected, set the campus_id
+            $internData['campus_id'] = $request->campus_id;
+        }
 
         if ($request->hasFile('foto')) {
             $foto = $request->file('foto');
@@ -110,8 +130,10 @@ class InternProfileController extends Controller
         // Update Intern model
         Intern::where('id_pengguna', $id_pengguna)->update($internData);
 
-        return Redirect::back()->with('success', 'Data successfully updated.');
+        return Redirect()->route('intern.profile')->with('success', 'Data successfully updated.');
     }
+
+
 
 
 

@@ -8,45 +8,70 @@
         <div class="w-100 border border-secondary rounded p-4 shadow"
             style="max-width: 600px; background-color: #f0f8ff;">
 
-            <div class="row">
-                <div class="col-12">
-                    <!-- Email input -->
-                    <div class="form-group mb-4">
-                        <label for="email" style="color: #323b60;">Email</label>
-                        <input type="email" class="form-control" id="email" value="{{ Auth::user()->email }}"
-                            readonly style="border: 1px solid #3A6D8C; background-color: #eaf2fb;" />
-                    </div>
-
-                    <!-- Password input -->
-                    <div class="form-group mb-4">
-                        <label for="password" style="color: #323b60;">Password Baru</label>
-                        <input type="password" class="form-control" id="password" name="password"
-                            placeholder="Masukkan password baru" autocomplete="off"
-                            style="border: 1px solid #3A6D8C; background-color: #eaf2fb;" />
-                    </div>
-
-                    <!-- Confirm password input -->
-                    <div class="form-group mb-4">
-                        <label for="confirm_password" style="color: #323b60;">Konfirmasi Password</label>
-                        <input type="password" class="form-control" id="confirm_password"
-                            name="confirm_password" placeholder="Konfirmasi password baru" autocomplete="off"
-                            style="border: 1px solid #3A6D8C; background-color: #eaf2fb;" />
-                    </div>
-
-                    <!-- Buttons -->
-                    <div class="form-group d-flex justify-content-center">
-                        <button type="submit" class="btn w-45 py-2"
-                            style="background-color: #3A6D8C; color: white; font-size: 16px; border-radius: 8px;">
-                            <ion-icon name="refresh-outline"></ion-icon>
-                            Update Password
-                        </button>
-
-                      
-                    </div>
+            <!-- Status message -->
+            @if (session('status') == 'password-updated')
+                <div class="alert alert-success" role="alert">
+                    {{ __('Password Updated') }}
                 </div>
-            </div>
+            @endif
+
+            <!-- Error messages -->
+            @if ($errors->any())
+                <ul class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
+
+            <!-- Password Update Form -->
+            <form method="POST" action="{{ route('user-password.update') }}">
+                @csrf
+                @method('PUT')
+
+                <!-- Current Password -->
+                <div class="form-group mb-4">
+                    <label for="current_password" style="color: #323b60;">{{ __('Current Password') }}</label>
+                    <input id="current_password" type="password"
+                        class="form-control @error('current_password', 'updatePassword') is-invalid @enderror"
+                        name="current_password" required autofocus
+                        style="border: 1px solid #3A6D8C; background-color: #eaf2fb;" />
+                    @error('current_password', 'updatePassword')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <!-- New Password -->
+                <div class="form-group mb-4">
+                    <label for="password" style="color: #323b60;">{{ __('New Password') }}</label>
+                    <input id="password" type="password"
+                        class="form-control @error('password', 'updatePassword') is-invalid @enderror" name="password"
+                        required autocomplete="new-password"
+                        style="border: 1px solid #3A6D8C; background-color: #eaf2fb;" />
+                    @error('password', 'updatePassword')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-group mb-4">
+                    <label for="password_confirmation" style="color: #323b60;">{{ __('Confirm Password') }}</label>
+                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation"
+                        required autocomplete="new-password"
+                        style="border: 1px solid #3A6D8C; background-color: #eaf2fb;" />
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-group d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success" style="border-radius: 8px;">
+                        {{ __('Update') }}
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
-
-    <br>
 </x-intern-layout-app>
