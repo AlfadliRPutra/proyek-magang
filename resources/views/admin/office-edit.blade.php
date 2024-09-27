@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
-                                            <label for="radius">Radius</label>
+                                            <label for="radius">Radius (Meter)</label>
                                             <input type="text" id="radius" name="radius"
                                                 placeholder="{{ $loc_office->radius }}" class="form-control"
                                                 value="{{ $loc_office->radius }}" />

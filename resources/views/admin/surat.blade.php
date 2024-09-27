@@ -111,7 +111,7 @@
                                                 <div class="d-flex">
                                                     <span class="me-2">
                                                         <a href="{{ url('admin/surat/' . $surat->id . '/edit') }}"
-                                                            class="badge text-bg-warning" title="Edit">
+                                                            class="badge text-bg-warning" title="Tinjau">
                                                             <i class="fas fa-pencil-alt"></i>
                                                         </a>
                                                     </span>

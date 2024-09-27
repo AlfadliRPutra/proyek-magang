@@ -1,7 +1,7 @@
 <x-admin-layout-app>
     <div class="page-inner">
         <div class="page-header">
-            <h3 class="fw-bold mb-3">Edit Data Surat</h3>
+            <h3 class="fw-bold mb-3">Tinjau Data Surat</h3>
             <ul class="breadcrumbs mb-3">
                 <li class="nav-home">
                     <a href="{{ route('admin.dashboard') }}">
@@ -12,13 +12,13 @@
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.surat') }}">Data Master</a>
+                    <a href="{{ route('admin.surat') }}">Data Surat</a>
                 </li>
                 <li class="separator">
                     <i class="icon-arrow-right"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Edit</a>
+                    <a href="#">Tinjau Surat</a>
                 </li>
             </ul>
         </div>
@@ -26,7 +26,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Edit Data Surat</div>
+                        <div class="card-title">Tinjau Surat</div>
                     </div>
                     <div class="card-body">
                         <div class="col-12">

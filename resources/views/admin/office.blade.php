@@ -47,7 +47,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label class="control-label"> Radius </label>
+                                    <label class="control-label"> Radius (Meter) </label>
                                     <p class="form-control-static">
                                         {{ $loc_office->radius }}
                                     </p>
