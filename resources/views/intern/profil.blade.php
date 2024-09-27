@@ -22,24 +22,21 @@
                 <div class="col-12">
                     <div class="form-group mb-4">
                         <label for="name" style="color: #323b60;">Nama Lengkap</label>
-                        <p class="form-control-plaintext ms-2"
-                            style="border: 1px solid #3A6D8C; background-color: #eaf2fb;">
+                        <p class="form-control-plaintext ms-2">
                             {{ ucwords(Auth::user()->name) }}
                         </p>
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="no_hp" style="color: #323b60;">No Handphone</label>
-                        <p class="form-control-plaintext ms-2"
-                            style="border: 1px solid #3A6D8C; background-color: #eaf2fb;">
+                        <p class="form-control-plaintext ms-2">
                             {{ Auth::user()->interns->no_phone ?? 'N/A' }}
                         </p>
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="email" style="color: #323b60;">Email</label>
-                        <p class="form-control-plaintext ms-2"
-                            style="border: 1px solid #3A6D8C; background-color: #eaf2fb;">
+                        <p class="form-control-plaintext ms-2">
                             {{ Auth::user()->email }}
                         </p>
                     </div>
