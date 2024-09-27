@@ -32,14 +32,5 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
         $admin->assignRole('admin');
-
-        $intern = User::create([
-            'name' => 'Intern',
-            'id_pengguna' => '12905678',
-            'email' => 'intern@unja.ac.id',
-            'password' => bcrypt('intern123'),
-            'email_verified_at' => now(),
-        ]);
-        $intern->assignRole('intern');
     }
 }
