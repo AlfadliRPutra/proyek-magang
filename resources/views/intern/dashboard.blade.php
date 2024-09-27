@@ -24,15 +24,6 @@
                         <div class="d-flex align-items-center">
                             <span class="me-2">Intern</span>
                             <span class="text-muted">|</span>
-                            <span class="ms-2">
-                                <form method="POST" action="{{ route('logout') }}" class="d-inline">
-                                    @csrf
-                                    <a href="#" class="text-secondary"
-                                        onclick="event.preventDefault(); this.closest('form').submit();">
-                                        {{ __('Log Out') }}
-                                    </a>
-                                </form>
-                            </span>
                         </div>
                     </div>
                 </div>
