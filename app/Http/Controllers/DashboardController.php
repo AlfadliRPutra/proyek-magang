@@ -62,43 +62,18 @@ class DashboardController extends Controller
 
         // Menghitung rekapitulasi presensi
         $rekapPresensi = DB::table('presensi')
-            ->selectRaw(
-                '
+            ->selectRaw('
         SUM(CASE 
-            WHEN (TIME(in_hour) >= "07:01" AND TIME(in_hour) <= "07:15") THEN 1
+            WHEN (TIME(in_hour) > "08:15") THEN 1
             ELSE 0
-        END) as jmlterlambat_shift1,
-        SUM(CASE 
-            WHEN (TIME(in_hour) > "07:15") THEN 1
-            ELSE 0
-        END) as jmltidakhadir_shift1,
-        SUM(CASE 
-            WHEN (TIME(in_hour) >= "14:01" AND TIME(in_hour) <= "14:15") THEN 1
-            ELSE 0
-        END) as jmlterlambat_shift2,
-        SUM(CASE 
-            WHEN (TIME(in_hour) > "14:15") THEN 1
-            ELSE 0
-        END) as jmltidakhadir_shift2,
-        (SUM(CASE 
-            WHEN (TIME(in_hour) >= "07:01" AND TIME(in_hour) <= "07:15") THEN 1
-            ELSE 0
-        END) + SUM(CASE 
-            WHEN (TIME(in_hour) >= "14:01" AND TIME(in_hour) <= "14:15") THEN 1
-            ELSE 0
-        END)) as jmlterlambat,
-        COUNT(*) - (SUM(CASE 
-            WHEN (TIME(in_hour) > "07:15") THEN 1
-            ELSE 0
-        END) + SUM(CASE 
-            WHEN (TIME(in_hour) > "14:15") THEN 1
-            ELSE 0
-        END)) as jmlhadir'
-            )
+        END) as jmlterlambat,
+        COUNT(*) as jmlhadir
+    ')
             ->where('id_pengguna', $id_pengguna)
-            ->whereRaw('MONTH(date_attendance)="' . $thisMonth . '"')
-            ->whereRaw('YEAR(date_attendance)="' . $thisYear . '"')
+            ->whereRaw('MONTH(date_attendance) = ?', [$thisMonth])
+            ->whereRaw('YEAR(date_attendance) = ?', [$thisYear])
             ->first();
+
 
         // Daftar nama bulan
         $nameMonth = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
